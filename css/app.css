@@ -9,6 +9,9 @@ li {
   width: 500px;
   padding: 10px;
   margin: 20px 0;
+  display: none;
+  opacity: 0;
+  transform: translateY(-100%);
 }
 
 .todo-filter {
