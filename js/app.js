@@ -1,4 +1,8 @@
 
+// Storage
+let todos = [];
+
+
 // helpers
 function qs(selector) {
   return document.querySelector(selector);      
@@ -11,11 +15,11 @@ function qsa(selector) {
 
 // main functions
 function bindTodoEvents() {
-  let todos = qsa('.todo-item');
-  for (let i = 0, l = todos.length; i < l; i++) {
-    let todo = todos[i]
-    todos[i].querySelector('.todo-item__delete').addEventListener('click', function() {
-      deleteTodo(todos[i].getAttribute('data-id'));
+  let todoEls = qsa('.todo-item');
+  for (let i = 0, l = todoEls.length; i < l; i++) {
+    let todo = todoEls[i]
+    todo.querySelector('.todo-item__delete').addEventListener('click', function() {
+      deleteTodo(todo.getAttribute('data-id'));
     })
   }
 }
@@ -43,24 +47,37 @@ function addTodo() {
 }
 
 
-function deleteTodo(id) {
-  // look over todos array for matched id and delete
-  console.log("todo id: " + id);
-  // render again
+function deleteTodo(dataId) {
+  // look over todos array for matched id and delete  
+  for (let i = 0, l = todos.length; i < l; i++) {
+    let int = todos[i].id;
+    console.log(int);
+    console.log(dataId);
+    if (int == dataId) {      
+      todos = todos.slice(0, i).concat(todos.slice(i + 1));
+      break;
+    }
+  }
+  renderTodos();
 }
-
-
-// Storage
-let todos = [];
 
 
 // input field
 let todoInput = qs(".todo-add__input");
 
 
+//
+// default event Listeners
+//
 // Add new task text to storage
 qs('.todo-add__button').addEventListener('click', addTodo);
 
+// enter key
+todoInput.addEventListener('keyup', function (event) {
+  if (event.which === 13) {
+    addTodo();
+  }
+});
 
 // Write list to DOM
 function renderTodos() {
