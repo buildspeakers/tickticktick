@@ -4,13 +4,18 @@
 //
 //
 function qs(selector) {
-  return document.querySelector(selector); 
-  alert('works')   
+  return document.querySelector(selector);      
 }
 
 
 // Storage
 let todos = [];
+
+// prototype for todo
+let todo = {
+  name: "",
+  complete: "false"
+}
 
 
 // input field
@@ -20,8 +25,15 @@ let todoInput = qs(".todo-add__input");
 // Add new task text to storage
 qs('.todo-add__button').addEventListener('click', function(){
   let taskText = todoInput.value;
+  // only add new todo if input field contains text
   if (taskText != "") {
-    todos.push(todoInput.value);
+    // New todo
+    let newTodo = Object.create(todo);
+    newTodo.name = todoInput.value;
+    todos.push(newTodo);
+    // clear input field maintaining focus
+    todoInput.value = "";
+    todoInput.focus();
     // render list
     renderTodos();
   } 
@@ -34,11 +46,12 @@ function renderTodos() {
     for (let i = 0, l = todos.length; i < l; i++) {
       listItems += "<li>"
         + "<input class=\"todo-item__checkbox\" type=\"checkbox\">"
-        + todos[i]
+        + todos[i].name
         + "<button class=\"todo-item__delete\">delete</button>"
         + "</li>";
     }
     qs('.todo-list').innerHTML = listItems;
+    console.log(todos);
 }
 
 
