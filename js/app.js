@@ -14,6 +14,41 @@ todoInput.addEventListener('keyup', function (event) {
   }
 });
 
+function removeClass(selector, classname) {
+  let buttons = qsa(selector);  
+  for (let i = 0, l = buttons.length; i < l; i++) {
+    if (buttons[i].classList.contains(classname)) {
+      buttons[i].classList.remove(classname)
+    }
+  }
+}
+
+// Filter button event listeners
+qs('.filter__all').addEventListener('click', function() {
+  view = 'ALL';
+  removeClass('.filter__button', 'filter__button--active');
+  if (!this.classList.contains('filter__button--active')) {
+    this.classList.add('filter__button--active');
+  }
+  renderTodos();
+});
+qs('.filter__incomplete').addEventListener('click', function () {
+  view = 'INCOMPLETE';
+  removeClass('.filter__button', 'filter__button--active');
+  if (!this.classList.contains('filter__button--active')) {
+    this.classList.add('filter__button--active');
+  }
+  renderTodos();
+});
+qs('.filter__complete').addEventListener('click', function () {
+  view = 'COMPLETE';
+  removeClass('.filter__button', 'filter__button--active');
+  if (!this.classList.contains('filter__button--active')) {
+    this.classList.add('filter__button--active');
+  }
+  renderTodos();
+});
+
 // render list
 renderTodos();
 
@@ -103,20 +138,27 @@ function changeCheckbox(dataId) {
 
 
 // Write list to DOM
-function renderTodos() {    
-    let listItems = "";
-    for (let i = 0, l = todos.length; i < l; i++) {      
-      if (todos[i].completed === false) {
-        listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">"
-        + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
-      } else {
-        listItems += "<li class=\"todo-item todo-item--complete\" data-id=\"" + todos[i].id + "\">"
-        + "<input class=\"todo-item__checkbox\" type=\"checkbox\" checked>"
-      }         
-      listItems += todos[i].name
-        + "<button class=\"todo-item__delete\">delete</button>"
-        + "</li>";
-    }
-    qs('.todo-list').innerHTML = listItems;
-    bindTodoEvents();
+function renderTodos() {
+  if (view == 'COMPLETE') {
+    filteredTodos = todos.filter(todo => todo.completed == true);
+  } else if (view == 'INCOMPLETE') {
+    filteredTodos = todos.filter(todo => todo.completed == false);
+  } else {
+    filteredTodos = todos;
+  }
+  let listItems = "";
+  for (let i = 0, l = filteredTodos.length; i < l; i++) {      
+    if (filteredTodos[i].completed === false) {
+      listItems += "<li class=\"todo-item\" data-id=\"" + filteredTodos[i].id + "\">"
+      + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
+    } else {
+      listItems += "<li class=\"todo-item todo-item--complete\" data-id=\"" + filteredTodos[i].id + "\">"
+      + "<input class=\"todo-item__checkbox\" type=\"checkbox\" checked>"
+    }         
+    listItems += filteredTodos[i].name
+      + "<button class=\"todo-item__delete\">delete</button>"
+      + "</li>";
+  }
+  qs('.todo-list').innerHTML = listItems;
+  bindTodoEvents();
 }
