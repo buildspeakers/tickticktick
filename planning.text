@@ -1,5 +1,3 @@
-1. delete function - find todo object by id and delete from todos array
-
-2. create function to fire when checkbox clicked
-
-3. render checkboxes checked/unchecked based on store
+1. seperate render functions for 
+    all / incomplete / complete
+    

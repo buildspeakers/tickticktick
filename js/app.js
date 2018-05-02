@@ -17,9 +17,15 @@ function qsa(selector) {
 function bindTodoEvents() {
   let todoEls = qsa('.todo-item');
   for (let i = 0, l = todoEls.length; i < l; i++) {
-    let todo = todoEls[i]
+    let todo = todoEls[i];
+    let dataId = todo.getAttribute('data-id');
+    // delete event
     todo.querySelector('.todo-item__delete').addEventListener('click', function() {
-      deleteTodo(todo.getAttribute('data-id'));
+      deleteTodo(dataId);
+    });
+    // checkbox event
+    todo.querySelector('.todo-item__checkbox').addEventListener('change', function() {
+      changeCheckbox(dataId);
     })
   }
 }
@@ -50,11 +56,23 @@ function addTodo() {
 function deleteTodo(dataId) {
   // look over todos array for matched id and delete  
   for (let i = 0, l = todos.length; i < l; i++) {
-    let int = todos[i].id;
-    console.log(int);
-    console.log(dataId);
-    if (int == dataId) {      
+    if (todos[i].id == dataId) {      
       todos = todos.slice(0, i).concat(todos.slice(i + 1));
+      break;
+    }
+  }
+  renderTodos();
+}
+
+
+function changeCheckbox(dataId) {  
+  for (let i = 0, l = todos.length; i < l; i++) {
+    if (todos[i].id == dataId) {
+      if (todos[i].completed === false) {
+        todos[i].completed = true;
+      } else {
+        todos[i].completed = false;
+      }
       break;
     }
   }
@@ -86,9 +104,15 @@ function renderTodos() {
     // write to dom
     let listItems = "";
     for (let i = 0, l = todos.length; i < l; i++) {
-      listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">"
-        + "<input class=\"todo-item__checkbox\" type=\"checkbox\">"
-        + todos[i].name
+      // listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">";
+      if (todos[i].completed === false) {
+        listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">"
+        + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
+      } else {
+        listItems += "<li class=\"todo-item todo-item--complete\" data-id=\"" + todos[i].id + "\">"
+        + "<input class=\"todo-item__checkbox\" type=\"checkbox\" checked>"
+      }         
+      listItems += todos[i].name
         + "<button class=\"todo-item__delete\">delete</button>"
         + "</li>";
     }
