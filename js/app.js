@@ -10,7 +10,7 @@ function qs(selector) {
 
 
 // Storage
-let todos = ['item1', 'item2', 'item3'];
+let todos = [];
 
 
 // input field
@@ -32,8 +32,19 @@ qs('.todo-add__button').addEventListener('click', function(){
 function renderTodos() {
     let listItems = "";
     for (let i = 0, l = todos.length; i < l; i++) {
-      listItems += "<li>" + todos[i] + "<button class=\"deleteTodo\">delete</button>" + "</li>";
+      listItems += "<li>"
+        + "<input class=\"todo-item__checkbox\" type=\"checkbox\">"
+        + todos[i]
+        + "<button class=\"todo-item__delete\">delete</button>"
+        + "</li>";
     }
     qs('.todo-list').innerHTML = listItems;
 }
 
+
+
+
+// on load
+
+// render list
+renderTodos();
