@@ -1,0 +1,16 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #ffddff;
+    width: 500px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.deleteTodo {
+    display: inline-block;
+    float: right;
+}

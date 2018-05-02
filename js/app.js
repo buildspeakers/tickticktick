@@ -31,7 +31,7 @@ qs('.todo-add__button').addEventListener('click', function(){
 function renderTodos() {
     let listItems = "";
     for (let i = 0, l = todos.length; i < l; i++) {
-      listItems += "<li>" + todos[i] + "</li>";
+      listItems += "<li>" + todos[i] + "<button class=\".deleteTodo\">delete</button>" + "</li>";
     }
     qs('.todo-list').innerHTML = listItems;
 }
