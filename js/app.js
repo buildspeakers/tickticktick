@@ -19,11 +19,12 @@ let todoInput = qs(".todo-add__input");
 
 // Add new task text to storage
 qs('.todo-add__button').addEventListener('click', function(){
-
-  todos.push(todoInput.value);  
-  
+  let taskText = todoInput.value;
+  if (taskText != "") {
+    todos.push(todoInput.value);
     // render list
-  renderTodos();
+    renderTodos();
+  } 
 });
 
 
@@ -31,7 +32,7 @@ qs('.todo-add__button').addEventListener('click', function(){
 function renderTodos() {
     let listItems = "";
     for (let i = 0, l = todos.length; i < l; i++) {
-      listItems += "<li>" + todos[i] + "<button class=\".deleteTodo\">delete</button>" + "</li>";
+      listItems += "<li>" + todos[i] + "<button class=\"deleteTodo\">delete</button>" + "</li>";
     }
     qs('.todo-list').innerHTML = listItems;
 }
