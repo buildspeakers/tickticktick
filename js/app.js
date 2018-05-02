@@ -1,21 +1,42 @@
-//
-//
-// helper functions
-//
+
+// functions
 //
 function qs(selector) {
   return document.querySelector(selector);      
 }
 
 
+function addTodo() {
+  let taskText = todoInput.value;
+  // only add new todo if input field contains text
+  if (taskText != "") {
+
+    // New todo
+    let newTodo = {};
+    newTodo.name = todoInput.value;
+    newTodo.completed = false;
+    newTodo.id = todos.length + 1;
+    todos.push(newTodo);    
+
+    // clear input field maintaining focus
+    todoInput.value = "";
+    todoInput.focus();
+
+    // render list
+    renderTodos();
+  }
+}
+
+
+function deleteTodo(id) {
+  // look over todos array for matched id and delete
+  console.log("todo id: " + id);
+  // render again
+}
+
+
 // Storage
 let todos = [];
-
-// prototype for todo
-let todo = {
-  name: "",
-  complete: "false"
-}
 
 
 // input field
@@ -23,25 +44,14 @@ let todoInput = qs(".todo-add__input");
 
 
 // Add new task text to storage
-qs('.todo-add__button').addEventListener('click', function(){
-  let taskText = todoInput.value;
-  // only add new todo if input field contains text
-  if (taskText != "") {
-    // New todo
-    let newTodo = Object.create(todo);
-    newTodo.name = todoInput.value;
-    todos.push(newTodo);
-    // clear input field maintaining focus
-    todoInput.value = "";
-    todoInput.focus();
-    // render list
-    renderTodos();
-  } 
-});
+qs('.todo-add__button').addEventListener('click', addTodo);
 
 
 // Write list to DOM
 function renderTodos() {
+    // create load of <li>'s from store
+    // bind events
+    // write to dom
     let listItems = "";
     for (let i = 0, l = todos.length; i < l; i++) {
       listItems += "<li>"
