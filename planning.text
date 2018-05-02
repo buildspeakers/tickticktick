@@ -1,14 +1,5 @@
-1. Add new to do
+1. delete function - find todo object by id and delete from todos array
 
-    function to take textbox data and add to store/state object
+2. create function to fire when checkbox clicked
 
-    function to remove all li's and re-render based on updated store
-
-2. Mark to do as complete
-
-3. Delete to do
-
-4. Filter to dos - All / Incomplete / Complete
-    - Component will be ul element
-    - have some state/store variable
-    - have function to 
+3. render checkboxes checked/unchecked based on store

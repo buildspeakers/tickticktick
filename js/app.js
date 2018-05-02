@@ -1,8 +1,23 @@
 
-// functions
-//
+// helpers
 function qs(selector) {
   return document.querySelector(selector);      
+}
+
+function qsa(selector) {
+  return document.querySelectorAll(selector);
+}
+
+
+// main functions
+function bindTodoEvents() {
+  let todos = qsa('.todo-item');
+  for (let i = 0, l = todos.length; i < l; i++) {
+    let todo = todos[i]
+    todos[i].querySelector('.todo-item__delete').addEventListener('click', function() {
+      deleteTodo(todos[i].getAttribute('data-id'));
+    })
+  }
 }
 
 
@@ -54,14 +69,14 @@ function renderTodos() {
     // write to dom
     let listItems = "";
     for (let i = 0, l = todos.length; i < l; i++) {
-      listItems += "<li>"
+      listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">"
         + "<input class=\"todo-item__checkbox\" type=\"checkbox\">"
         + todos[i].name
         + "<button class=\"todo-item__delete\">delete</button>"
         + "</li>";
     }
     qs('.todo-list').innerHTML = listItems;
-    console.log(todos);
+    bindTodoEvents();
 }
 
 
