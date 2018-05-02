@@ -1,6 +1,27 @@
-
-// Storage
+// Storage / state
 let todos = [];
+let view = 'ALL';
+
+// input field
+let todoInput = qs(".todo-add__input");
+
+// Add todo event listeners
+qs('.todo-add__button').addEventListener('click', addTodo);
+// add event when enter key pressed
+todoInput.addEventListener('keyup', function (event) {
+  if (event.which === 13) {
+    addTodo();
+  }
+});
+
+// render list
+renderTodos();
+
+
+
+
+////////////////////////////////////////////////////////
+// functions
 
 
 // helpers
@@ -80,31 +101,11 @@ function changeCheckbox(dataId) {
 }
 
 
-// input field
-let todoInput = qs(".todo-add__input");
-
-
-//
-// default event Listeners
-//
-// Add new task text to storage
-qs('.todo-add__button').addEventListener('click', addTodo);
-
-// enter key
-todoInput.addEventListener('keyup', function (event) {
-  if (event.which === 13) {
-    addTodo();
-  }
-});
 
 // Write list to DOM
-function renderTodos() {
-    // create load of <li>'s from store
-    // bind events
-    // write to dom
+function renderTodos() {    
     let listItems = "";
-    for (let i = 0, l = todos.length; i < l; i++) {
-      // listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">";
+    for (let i = 0, l = todos.length; i < l; i++) {      
       if (todos[i].completed === false) {
         listItems += "<li class=\"todo-item\" data-id=\"" + todos[i].id + "\">"
         + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
@@ -119,11 +120,3 @@ function renderTodos() {
     qs('.todo-list').innerHTML = listItems;
     bindTodoEvents();
 }
-
-
-
-
-// on load
-
-// render list
-renderTodos();
