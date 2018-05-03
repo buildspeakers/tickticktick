@@ -104,10 +104,39 @@ function addTodo() {
     todoInput.value = "";
     todoInput.focus();
 
-    // render list
-    renderTodos();
+    // append todo
+    appendTodo(newTodo);
   }
 }
+
+
+/*
+*
+* Using document.createElement() here as must mas element 
+* of type 'Node' to appendChild() for it to work
+*
+*/
+
+function appendTodo(newTodo) {
+
+  let listItem = document.createElement('li');
+  listItem.className = 'todo-item';
+  listItem.setAttribute('data-id', newTodo.id);
+
+  let checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+
+  let button = document.createElement('button');
+
+
+  // listItem += "<li class=\"todo-item\" data-id=\"" + newTodo.id + "\">"
+  // + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
+  // + newTodo.name
+  // + "<button class=\"todo-item__delete\">delete</button>"
+  // + "</li>";
+  qs('.todo-list').appendChild(listItem);
+}
+
 
 
 function deleteTodo(dataId) {
