@@ -142,10 +142,15 @@ function unappendTodo(dataId) {
   let dataIdVal = "[data-id=\"" + dataId + "\"]";
   let todoNode = qs(dataIdVal);
   TweenMax.to(todoNode, 0.15, {
-    ease: Power2.easeIn,
-    display: "list-item",
+    ease: Power2.easeIn,    
     opacity: 0
-  })
+  });
+  TweenMax.to(todoNode, 0.15, {ease: Power2.easeIn, x: 10, onComplete: deleteNode});  
+  function deleteNode() {
+    setTimeout(function() {
+      todoNode.parentNode.removeChild(todoNode);
+    }, 150);
+  }
 }
 
 function createListItem(newTodo) {
