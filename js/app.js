@@ -15,6 +15,8 @@ todoInput.addEventListener('keyup', function (event) {
   }
 });
 
+
+
 function removeClass(selector, classname) {
   let buttons = qsa(selector);  
   for (let i = 0, l = buttons.length; i < l; i++) {
@@ -35,27 +37,21 @@ function swapActiveClass(target) {
 qs('.filter__all').addEventListener('click', function() {
   view = 'ALL';
   swapActiveClass(this);
-  renderTodos();
+  filterTodos();
 });
 qs('.filter__incomplete').addEventListener('click', function () {
   view = 'INCOMPLETE';
   swapActiveClass(this);
-  renderTodos();
+  filterTodos();
 });
 qs('.filter__complete').addEventListener('click', function () {
   view = 'COMPLETE'; 
   swapActiveClass(this);
-  renderTodos();
+  filterTodos();
 });
 
-// render list
-renderTodos();
-
-
-
-
-////////////////////////////////////////////////////////
-// functions
+// filter list
+filterTodos();
 
 
 // helpers
@@ -135,7 +131,12 @@ function addTodo() {
 */
 
 function appendTodo(newTodo) {
+  let listItem = createListItem(newTodo);
+  qs('.todo-list').appendChild(listItem);
+}
 
+
+function createListItem(newTodo) {
   let listItem = document.createElement('li');
   listItem.className = 'todo-item';
   listItem.setAttribute('data-id', newTodo.id);
@@ -151,19 +152,18 @@ function appendTodo(newTodo) {
   button.className = 'todo-item__delete';
   button.innerText = 'Delete';
 
+  if (newTodo.completed === true) {
+    listItem.classList.add('todo-item--complete');
+    checkbox.setAttribute('checked', 'checked');
+  } 
+
   listItem.appendChild(checkbox);
   listItem.appendChild(name);
   listItem.appendChild(button);
 
+  return listItem;
 
-  // listItem += "<li class=\"todo-item\" data-id=\"" + newTodo.id + "\">"
-  // + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
-  // + newTodo.name
-  // + "<button class=\"todo-item__delete\">delete</button>"
-  // + "</li>";
-  qs('.todo-list').appendChild(listItem);
 }
-
 
 
 function deleteTodo(dataId) {
@@ -174,7 +174,7 @@ function deleteTodo(dataId) {
       break;
     }
   }
-  renderTodos();
+  filterTodos();
 }
 
 
@@ -189,13 +189,13 @@ function changeCheckbox(dataId) {
       break;
     }
   }
-  renderTodos();
+  filterTodos();
 }
 
 
 
 // Write list to DOM
-function renderTodos() {
+function filterTodos() {
   if (view == 'COMPLETE') {
     filteredTodos = todos.filter(todo => todo.completed == true);
   } else if (view == 'INCOMPLETE') {
@@ -203,21 +203,13 @@ function renderTodos() {
   } else {
     filteredTodos = todos;
   }
-  let listItems = "";
+  let ul = qs('.todo-list');
+  ul.innerHTML = '';
   for (let i = 0, l = filteredTodos.length; i < l; i++) {      
-    if (filteredTodos[i].completed === false) {
-      listItems += "<li class=\"todo-item\" data-id=\"" + filteredTodos[i].id + "\">"
-      + "<input class=\"todo-item__checkbox\" type=\"checkbox\">";
-    } else {
-      listItems += "<li class=\"todo-item todo-item--complete\" data-id=\"" + filteredTodos[i].id + "\">"
-      + "<input class=\"todo-item__checkbox\" type=\"checkbox\" checked>"
-    }         
-    listItems += filteredTodos[i].name
-      + "<button class=\"todo-item__delete\">delete</button>"
-      + "</li>";
+    ul.appendChild(createListItem(filteredTodos[i]));
   }
-  qs('.todo-list').innerHTML = listItems;
-
+  
+// animatey
   let tl1 = new TimelineMax();
   let tl2 = new TimelineMax();
   // GSAP staggerTo...
