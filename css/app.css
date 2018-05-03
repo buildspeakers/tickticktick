@@ -19,19 +19,36 @@ li {
 }
 
 
-/* Filter buttons */
-.filter__button {
-  outline: none;  
+/*
+
+BUTTONZZ
+
+*/
+
+.todo-button {
   display: inline-block;
-  text-decoration: none;
+  outline: none; 
+  background-color: #fff;
+  border: 1px solid #fff;
   padding: 3px 10px;
   margin: 0 3px;
   border-radius: 4px;
+}
+
+.todo-button:hover {
+  cursor: pointer;
+}
+
+.todo-button__add {
+  border: 1px solid #ffe1e1;
+}
+
+.todo-button__filter {  
   border: 1px solid #ffffff;
   transition: border 0.2s;
 }
 
-.filter__button--active {
+.todo-button__filter--active {
   border: 1px solid #a1a1a1;
 }
 
@@ -41,8 +58,7 @@ li {
   margin-right: 15px;
 }
 
-.todo-item__delete {
-  display: inline-block;
+.todo-item__delete {  
   float: right;
 }
 

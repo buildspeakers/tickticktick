@@ -7,7 +7,7 @@ let todoInput = qs(".todo-add__input");
 
 
 // Add todo event listeners
-qs('.todo-add__button').addEventListener('click', addTodo);
+qs('.todo-button__add').addEventListener('click', addTodo);
 // add event when enter key pressed
 todoInput.addEventListener('keyup', function (event) {
   if (event.which === 13) {
@@ -24,29 +24,27 @@ function removeClass(selector, classname) {
   }
 }
 
+function swapActiveClass(target) {
+  removeClass('.todo-button', 'todo-button__filter--active');
+  if (!target.classList.contains('todo-button__filter--active')) {
+    target.classList.add('todo-button__filter--active');
+  }
+}
+
 // Filter button event listeners
 qs('.filter__all').addEventListener('click', function() {
   view = 'ALL';
-  removeClass('.filter__button', 'filter__button--active');
-  if (!this.classList.contains('filter__button--active')) {
-    this.classList.add('filter__button--active');
-  }
+  swapActiveClass(this);
   renderTodos();
 });
 qs('.filter__incomplete').addEventListener('click', function () {
   view = 'INCOMPLETE';
-  removeClass('.filter__button', 'filter__button--active');
-  if (!this.classList.contains('filter__button--active')) {
-    this.classList.add('filter__button--active');
-  }
+  swapActiveClass(this);
   renderTodos();
 });
 qs('.filter__complete').addEventListener('click', function () {
-  view = 'COMPLETE';
-  removeClass('.filter__button', 'filter__button--active');
-  if (!this.classList.contains('filter__button--active')) {
-    this.classList.add('filter__button--active');
-  }
+  view = 'COMPLETE'; 
+  swapActiveClass(this);
   renderTodos();
 });
 

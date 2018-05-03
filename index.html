@@ -10,16 +10,19 @@
     <title>Document</title>
 </head>
 <body>
+
     <section class="todo-filter">
         <span>Filter: </span>
-        <a href="#all" class="filter__all filter__button filter__button--active">All</a>
-        <a href="#incomplete" class="filter__incomplete filter__button">Incomplete</a>
-        <a href="#complete" class="filter__complete filter__button">Complete</a>
+        <button class="todo-button filter__all todo-button__filter--active">All</button>
+        <button class="todo-button filter__incomplete">Incomplete</button>
+        <button class="todo-button filter__complete">Complete</button>
     </section>
+
     <section class="todo-add">
         <input class="todo-add__input" type="text">
-        <button class="todo-add__button">Add</button>
+        <button class="todo-button todo-button__add">Add</button>
     </section>
+
     <ul class="todo-list"></ul>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@1.20.4/TweenMax.min.js"></script>
