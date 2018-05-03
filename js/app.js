@@ -5,8 +5,6 @@ let view = 'ALL';
 // input field
 let todoInput = qs(".todo-add__input");
 
-// GSAP timeline
-let tl = new TimelineMax();
 
 // Add todo event listeners
 qs('.todo-add__button').addEventListener('click', addTodo);
@@ -163,12 +161,22 @@ function renderTodos() {
       + "</li>";
   }
   qs('.todo-list').innerHTML = listItems;
-  // gsap - display: list-item;
-  tl.staggerTo('.todo-item', 0.3, {
+
+  let tl1 = new TimelineMax();
+  let tl2 = new TimelineMax();
+  // GSAP staggerTo...
+    // FIRST VALUE IS DURATION
+    // SECOND VALUE IS STAGGER GAP/DELAY
+  tl1.staggerTo('.todo-item', 0.15, {
+    ease: Power2.easeIn,
     display: "list-item",
-    opacity: 1,
-    y: 0
-  }, 0.1);
+    opacity: 1    
+  }, 0.05);
+
+  tl2.staggerTo('.todo-item', 0.15, {   
+    ease: Power2.easeIn,
+    x: 0
+  }, 0.05);
 
   bindTodoEvents();
 }

@@ -11,7 +11,7 @@ li {
   margin: 20px 0;
   display: none;
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateX(10px);
 }
 
 .todo-filter {

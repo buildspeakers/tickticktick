@@ -1,5 +1,28 @@
+-- new function to create new todo
+
+    // function to add new data to store
+    // function to append new li to DOM with animation
+
+
+
+-- new function for delete todo event
+
+    // One function to remove from store
+
+    // Seperate function to remove from DOM with animation
+        (can use this one for checkbox events)
+
+
+
+
+
 1. edit buttons
 
 2. edit handler
 
 3. save handler
+
+
+*** Work out how to kill gsap animation when event occurs ***
+
+
