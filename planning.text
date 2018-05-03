@@ -10,6 +10,10 @@
     // Seperate function to remove from DOM with animation
         (can use this one for checkbox events)
 
+        - slide right & fade out
+        - slide up
+        - remove from DOM
+
 
 
 *** Styling - look at toggle class for checkbox on vanillamvc version ***
@@ -22,8 +26,4 @@
 2. edit handler
 
 3. save handler
-
-
-*** Work out how to kill gsap animation when event occurs? ***
-
 

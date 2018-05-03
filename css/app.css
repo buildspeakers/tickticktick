@@ -24,7 +24,6 @@ li {
 BUTTONZZ
 
 */
-
 .todo-button {
   display: inline-block;
   outline: none; 
@@ -33,6 +32,7 @@ BUTTONZZ
   padding: 3px 10px;
   margin: 0 3px;
   border-radius: 4px;
+  transition: border 0.15s;
 }
 
 .todo-button:hover {
@@ -43,16 +43,9 @@ BUTTONZZ
   border: 1px solid #ffe1e1;
 }
 
-.todo-button__filter {  
-  border: 1px solid #ffffff;
-  transition: border 0.2s;
-}
-
 .todo-button__filter--active {
   border: 1px solid #a1a1a1;
 }
-
-
 
 .todo-item__checkbox {
   margin-right: 15px;

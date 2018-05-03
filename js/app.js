@@ -81,17 +81,30 @@ function bindTodoEvents() {
   }
 }
 
+function storeTodo(todoText) {  
+  let newTodo = {};
+  newTodo.name = todoText;
+  newTodo.completed = false;
+  newTodo.id = todos.length + 1;
+  todos.push(newTodo);
+  return newTodo;
+}
+
+
+function unStoreTodo(dataId) {  
+  for (let i = 0, l = todos.length; i < l; i++) {
+    if (todos[i].id == dataId) {
+      todos = todos.slice(0, i).concat(todos.slice(i + 1));
+      break;
+    }
+  }
+}
+
 
 function addTodo() {
-  let taskText = todoInput.value;
-  // only add new todo if input field contains text
-  if (taskText != "") {
-    // New todo
-    let newTodo = {};
-    newTodo.name = todoInput.value;
-    newTodo.completed = false;
-    newTodo.id = todos.length + 1;
-    todos.push(newTodo);
+  let todoText = todoInput.value;  
+  if (todoText != "") {
+    let newTodo = storeTodo(todoText);
     // clear input field maintaining focus
     todoInput.value = "";
     todoInput.focus();
@@ -106,8 +119,7 @@ function addTodo() {
       opacity: 1
     });
     TweenMax.to(dataId, 0.15, {
-      ease: Power2.easeIn,
-      display: "list-item",
+      ease: Power2.easeIn,      
       x: 0
     });
   }
@@ -124,6 +136,16 @@ function addTodo() {
 function appendTodo(newTodo) {
   let listItem = createListItem(newTodo);
   qs('.todo-list').appendChild(listItem);
+}
+
+function unappendTodo(dataId) {
+  let dataIdVal = "[data-id=\"" + dataId + "\"]";
+  let todoNode = qs(dataIdVal);
+  TweenMax.to(todoNode, 0.15, {
+    ease: Power2.easeIn,
+    display: "list-item",
+    opacity: 0
+  })
 }
 
 function createListItem(newTodo) {
@@ -157,14 +179,8 @@ function createListItem(newTodo) {
 
 
 function deleteTodo(dataId) {
-  // look over todos array for matched id and delete  
-  for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == dataId) {      
-      todos = todos.slice(0, i).concat(todos.slice(i + 1));
-      break;
-    }
-  }
-  filterTodos();
+  unStoreTodo(dataId);
+  unappendTodo(dataId)
 }
 
 
