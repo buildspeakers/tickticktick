@@ -106,6 +106,8 @@ function addTodo() {
 
     // append todo
     appendTodo(newTodo);
+
+    bindTodoEvents();
   }
 }
 
@@ -125,8 +127,18 @@ function appendTodo(newTodo) {
 
   let checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
+  checkbox.className = 'todo-item__checkbox';
+
+  let name = document.createElement('span');
+  name.innerText = newTodo.name;
 
   let button = document.createElement('button');
+  button.className = 'todo-item__delete';
+  button.innerText = 'Delete';
+
+  listItem.appendChild(checkbox);
+  listItem.appendChild(name);
+  listItem.appendChild(button);
 
 
   // listItem += "<li class=\"todo-item\" data-id=\"" + newTodo.id + "\">"
