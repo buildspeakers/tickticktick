@@ -103,11 +103,28 @@ function addTodo() {
     // clear input field maintaining focus
     todoInput.value = "";
     todoInput.focus();
-
-    // append todo
+    // Append and bind events
     appendTodo(newTodo);
-
     bindTodoEvents();
+
+    let dataId = "[data-id=\"" + newTodo.id + "\"]";
+
+    let tl1 = new TimelineMax();
+    let tl2 = new TimelineMax();
+    // GSAP staggerTo...
+    // FIRST VALUE IS DURATION
+    // SECOND VALUE IS STAGGER GAP/DELAY
+    tl1.staggerTo( dataId, 0.15, {
+      ease: Power2.easeIn,
+      display: "list-item",
+      opacity: 1
+    }, 0.05);
+
+    tl2.staggerTo(dataId, 0.15, {
+      ease: Power2.easeIn,
+      x: 0
+    }, 0.05);
+
   }
 }
 
