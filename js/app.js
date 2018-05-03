@@ -165,9 +165,9 @@ function createListItem(newTodo) {
   let name = document.createElement('span');
   name.innerText = newTodo.name;
 
-  let button = document.createElement('button');
-  button.className = 'todo-item__delete';
-  button.innerText = 'Delete';
+  let deleteButton = document.createElement('button');
+  deleteButton.className = 'todo-button todo-item__delete';
+  deleteButton.innerText = 'Delete';
 
   if (newTodo.completed === true) {
     listItem.classList.add('todo-item--complete');
@@ -176,7 +176,7 @@ function createListItem(newTodo) {
 
   listItem.appendChild(checkbox);
   listItem.appendChild(name);
-  listItem.appendChild(button);
+  listItem.appendChild(deleteButton);
 
   return listItem;
 
