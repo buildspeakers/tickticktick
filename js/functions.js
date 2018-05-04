@@ -165,7 +165,7 @@ function changeCheckbox(dataId) {
       break;
     }
   }
-  filterTodos();
+  if (view != 'ALL') unappendTodo(dataId);
 }
 
 

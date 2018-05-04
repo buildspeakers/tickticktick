@@ -5,9 +5,9 @@ let view = 'ALL';
 // input field
 let todoInput = qs(".todo-add__input");
 
+// Initial event listeners
 
-
-// Add todo event listeners
+// Add todo
 qs('.todo-button__add').addEventListener('click', addTodo);
 // add event when enter key pressed
 todoInput.addEventListener('keyup', function (event) {
@@ -16,7 +16,7 @@ todoInput.addEventListener('keyup', function (event) {
   }
 });
 
-// Filter button event listeners
+// Filter todos
 qs('.filter__all').addEventListener('click', function() {
   view = 'ALL';
   swapActiveClass(this);
@@ -32,5 +32,3 @@ qs('.filter__complete').addEventListener('click', function () {
   swapActiveClass(this);
   filterTodos();
 });
-
-
