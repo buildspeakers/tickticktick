@@ -1,16 +1,9 @@
-
-1. Seperate functions for check/uncheck
+1. Improve Styling
+    - icon for delete & checkboxes (look at toggle class for checkbox on vanillamvc version)
 
 2. edit 
-    -edit/save button
+    - double click to edit / button to save
     -edit handler (button / double click)
     -save handler
 
-
--- new function for delete todo event
-
-
-
-*** Styling - look at toggle class for checkbox on vanillamvc version ***
-
-
+3. Create some AJAX methods!
