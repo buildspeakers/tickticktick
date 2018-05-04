@@ -1,29 +1,16 @@
 
+1. Seperate functions for check/uncheck
 
-
+2. edit 
+    -edit/save button
+    -edit handler (button / double click)
+    -save handler
 
 
 -- new function for delete todo event
-
-    // One function to remove from store
-
-    // Seperate function to remove from DOM with animation
-        (can use this one for checkbox events)
-
-        - slide right & fade out
-        - slide up
-        - remove from DOM
 
 
 
 *** Styling - look at toggle class for checkbox on vanillamvc version ***
 
-
-
-
-1. edit buttons
-
-2. edit handler
-
-3. save handler
 
