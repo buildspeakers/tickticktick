@@ -1,9 +1,11 @@
-1. Improve Styling
+1. Bring in gulp/scss
+
+2. Improve Styling
     - icon for delete & checkboxes (look at toggle class for checkbox on vanillamvc version)
 
-2. edit 
+3. edit 
     - double click to edit / button to save
     -edit handler (button / double click)
     -save handler
 
-3. Create some AJAX methods!
+4. Create some AJAX methods
