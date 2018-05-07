@@ -1,3 +1,19 @@
+// Filter vars
+const ALL = "ALL";
+const INCOMPLETE = "INCOMPLETE"
+const COMPLETE = "COMPLETE";
+
+// Initialise Local Storage
+// Set counter if none exists
+if (!localStorage.getItem("meta")) {
+  let metaData = {
+    count: 0,
+    view: ALL
+  }
+  localStorage.setItem("meta", JSON.stringify(metaData))
+} 
+
+
 // Storage / state
 let todos = [];
 let view = 'ALL';
@@ -32,3 +48,11 @@ qs('.filter__complete').addEventListener('click', function () {
   swapActiveClass(this);
   filterTodos();
 });
+
+
+
+//
+// document loads
+//
+
+  // Look at local storage and render list based on what's there
