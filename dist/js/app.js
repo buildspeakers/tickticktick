@@ -87,7 +87,10 @@ function addTodo() {
 // Bound to delete button
 function deleteTodo(dataId) {
   deleteLocalStore(dataId);
+
+  // Old storage
   unStoreTodo(dataId);
+
   unappendTodo(dataId)
 }
 
@@ -132,6 +135,9 @@ function createListItem(newTodo) {
   let deleteButton = document.createElement('button');
   deleteButton.className = 'todo-button todo-item__delete';
   deleteButton.innerText = 'Delete';
+  deleteButton.addEventListener('click', function () {
+    deleteTodo(newTodo.id);
+  });
 
   if (newTodo.completed === true) {
     listItem.classList.add('todo-item--complete');
@@ -233,20 +239,17 @@ function filterTodos() {
   bindTodoEvents();
 }
 
-function bindTodoEvents() {
-  console.log("bindTodoEvents fires");
+function bindTodoEvents() {  
   let todoEls = qsa('.todo-item');
   for (let i = 0, l = todoEls.length; i < l; i++) {
     let todo = todoEls[i];
     let dataId = todo.getAttribute('data-id');
-    // delete event
-    todo.querySelector('.todo-item__delete').addEventListener('click', function() {
-      deleteTodo(dataId);
-    });
+    
     // checkbox event
     todo.querySelector('.todo-item__checkbox').addEventListener('change', function() {
       changeCheckbox(dataId);
     });
+
   }
 }
 // Filter vars
