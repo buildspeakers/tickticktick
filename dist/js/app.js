@@ -12,7 +12,9 @@ function setView(newView) {
   setMeta(newMeta);
 }
 
+
 function getTodo(id) {
+  // return individual todo
   return JSON.parse(localStorage.getItem(id));
 }
 function setTodo(todo) {
@@ -21,12 +23,25 @@ function setTodo(todo) {
 }
 
 function addLocalStore(newTodo) {
+
   // Increase Count
   let meta = getMeta();
   meta.count++;
   setMeta(meta);
+
   // Store new data object
-  localStorage.setItem(newTodo.id, JSON.stringify(newTodo));    
+  let todos = JSON.parse(localStorage.getItem("todos"));
+
+  console.log(todos);
+
+  console.log("newTodo.id : "+newTodo.id);
+
+  let id = newTodo.id; 
+  todos[id] = newTodo;
+
+  console.log(newTodo.id);
+
+  localStorage.setItem("todos", JSON.stringify(todos));    
 }
 
 function deleteLocalStore(id) {
@@ -273,7 +288,8 @@ if (!localStorage.getItem("meta")) {
     count: 0,
     view: ALL
   }
-  localStorage.setItem("meta", JSON.stringify(metaData))
+  localStorage.setItem("meta", JSON.stringify(metaData));
+  localStorage.setItem("todos", JSON.stringify({}));
 } 
 
 // On load

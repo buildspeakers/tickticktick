@@ -10,7 +10,8 @@ if (!localStorage.getItem("meta")) {
     count: 0,
     view: ALL
   }
-  localStorage.setItem("meta", JSON.stringify(metaData))
+  localStorage.setItem("meta", JSON.stringify(metaData));
+  localStorage.setItem("todos", JSON.stringify({}));
 } 
 
 // On load
