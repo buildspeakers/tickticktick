@@ -1,5 +1,10 @@
 1. Switch to use local storage
 
+    // Seperate meta and todos objects in storage
+
+    // get todos, update it and replace it in storage when updating a todo
+    
+
 2. edit todo functionality
     - double click to edit / button to save
     - edit handler (button / double click)
