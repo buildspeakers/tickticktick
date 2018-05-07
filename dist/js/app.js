@@ -6,6 +6,20 @@ function setMeta(meta) {
   localStorage.setItem("meta", JSON.stringify(meta));
 }
 
+function setView(newView) {
+  let newMeta = getMeta();
+  newMeta.view = newView;
+  setMeta(newMeta);
+}
+
+function getTodo(id) {
+  return JSON.parse(localStorage.getItem(id));
+}
+function setTodo(todo) {
+  deleteLocalStore(todo.id);  
+  localStorage.setItem(todo.id, JSON.stringify(todo));
+}
+
 function addLocalStore(newTodo) {
   // Increase Count
   let meta = getMeta();
@@ -17,6 +31,13 @@ function addLocalStore(newTodo) {
 
 function deleteLocalStore(id) {
   localStorage.removeItem(id);
+}
+
+// Complete / Incomplete
+function toggleLocalStore(id) {
+  let todo = getTodo(id);
+  if (todo.complete == false ? todo.complete = true : todo.complete = false);
+  setTodo(todo);
 }
 /*
 *
@@ -155,15 +176,15 @@ function createListItem(newTodo) {
 }
 
 // Toggle complete/incomplete
-function changeCheckbox(dataId) {
-  console.log('Checkbox Fires!!!');
+function changeCheckbox(id) {
+  toggleLocalStore(id);
   for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == dataId) {
+    if (todos[i].id == id) {
       if (todos[i].completed === false ? todos[i].completed = true : todos[i].completed = false)
         break;
     }
   }
-  if (view != 'ALL') unappendTodo(dataId);
+  if (getMeta().view != ALL) unappendTodo(id);
 }
 
 
@@ -209,7 +230,7 @@ function swapActiveClass(target) {
 }
 
 // Write list to DOM
-function filterTodos() {
+function renderTodos() {
   if (view == 'COMPLETE') {
     filteredTodos = todos.filter(todo => todo.completed == true);
   } else if (view == 'INCOMPLETE') {
@@ -261,9 +282,6 @@ if (!localStorage.getItem("meta")) {
 
 
 
-
-
-
 // Storage / state
 let todos = [];
 let view = 'ALL';
@@ -287,13 +305,6 @@ let todoListUl = qs('.todo-list');
 
 
 
-
-
-
-
-
-
-
 //
 // Initial Button event listeners
 //
@@ -308,18 +319,21 @@ todoInput.addEventListener('keyup', function (event) {
 
 // Filter todos
 filterAll.addEventListener('click', function () {
+  setView(ALL);
   view = 'ALL';
   swapActiveClass(this);
-  filterTodos();
+  renderTodos();
 });
 filterIncomplete.addEventListener('click', function () {
+  setView(INCOMPLETE);
   view = 'INCOMPLETE';
   swapActiveClass(this);
-  filterTodos();
+  renderTodos();
 });
 filterComplete.addEventListener('click', function () {
+  setView(COMPLETE);
   view = 'COMPLETE';
   swapActiveClass(this);
-  filterTodos();
+  renderTodos();
 });
 

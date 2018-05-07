@@ -26,7 +26,7 @@ gulp.task('concatJs', () => {
     // My js
     'src/js/store.js',
     'src/js/functions.js',
-    'src/js/app.js'
+    'src/js/load.js'
   ])
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/js'))

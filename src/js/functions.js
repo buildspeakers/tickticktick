@@ -135,15 +135,15 @@ function createListItem(newTodo) {
 }
 
 // Toggle complete/incomplete
-function changeCheckbox(dataId) {
-  console.log('Checkbox Fires!!!');
+function changeCheckbox(id) {
+  toggleLocalStore(id);
   for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == dataId) {
+    if (todos[i].id == id) {
       if (todos[i].completed === false ? todos[i].completed = true : todos[i].completed = false)
         break;
     }
   }
-  if (view != 'ALL') unappendTodo(dataId);
+  if (getMeta().view != ALL) unappendTodo(id);
 }
 
 
@@ -189,7 +189,7 @@ function swapActiveClass(target) {
 }
 
 // Write list to DOM
-function filterTodos() {
+function renderTodos() {
   if (view == 'COMPLETE') {
     filteredTodos = todos.filter(todo => todo.completed == true);
   } else if (view == 'INCOMPLETE') {

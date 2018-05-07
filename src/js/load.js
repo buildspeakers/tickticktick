@@ -19,9 +19,6 @@ if (!localStorage.getItem("meta")) {
 
 
 
-
-
-
 // Storage / state
 let todos = [];
 let view = 'ALL';
@@ -45,13 +42,6 @@ let todoListUl = qs('.todo-list');
 
 
 
-
-
-
-
-
-
-
 //
 // Initial Button event listeners
 //
@@ -66,18 +56,21 @@ todoInput.addEventListener('keyup', function (event) {
 
 // Filter todos
 filterAll.addEventListener('click', function () {
+  setView(ALL);
   view = 'ALL';
   swapActiveClass(this);
-  filterTodos();
+  renderTodos();
 });
 filterIncomplete.addEventListener('click', function () {
+  setView(INCOMPLETE);
   view = 'INCOMPLETE';
   swapActiveClass(this);
-  filterTodos();
+  renderTodos();
 });
 filterComplete.addEventListener('click', function () {
+  setView(COMPLETE);
   view = 'COMPLETE';
   swapActiveClass(this);
-  filterTodos();
+  renderTodos();
 });
 
