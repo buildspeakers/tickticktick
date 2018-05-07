@@ -11,19 +11,28 @@
 </head>
 <body>
 
-    <section class="todo-filter">
-        <span>Filter: </span>
-        <button class="todo-button filter__all todo-button__filter--active">All</button>
-        <button class="todo-button filter__incomplete">Incomplete</button>
-        <button class="todo-button filter__complete">Complete</button>
-    </section>
+    <section class="container">
 
-    <section class="todo-add">
-        <input class="todo-add__input" type="text">
-        <button class="todo-button todo-button__add">Add</button>
-    </section>
+        <section class="todo-container">
+        
+            <section class="todo-filter">
+                <span>Show: </span>
+                <button class="todo-button filter__all todo-button__filter--active">All</button>
+                <button class="todo-button filter__incomplete">Incomplete</button>
+                <button class="todo-button filter__complete">Complete</button>
+            </section>           
+        
+            <ul class="todo-list"></ul>
 
-    <ul class="todo-list"></ul>
+            <section class="todo-add">
+                <input class="todo-add__input" type="text">
+                <button class="todo-button todo-button__add">Add</button>
+            </section>
+        
+        </section>
+
+
+    </section>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@1.20.4/TweenMax.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
