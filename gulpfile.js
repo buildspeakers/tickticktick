@@ -42,10 +42,16 @@ gulp.task('sassReload', ['compileSass'], (done) => {
   done();
 })
 
+// compile js and reload
+gulp.task('jsReload', ['concatJs'], (done) => {
+  browserSync.reload();
+  done();
+})
+
 // watch task
 gulp.task('watchFiles', () => {
   gulp.watch(['src/scss/**/*.scss'], ['sassReload']); // watch sass
-  gulp.watch(['src/js/*.js'], ['concatJs']); // watch js
+  gulp.watch(['src/js/*.js'], ['jsReload']); // watch js
   gulp.watch(['dist/*.html'], ['reload']); // watch html
 })
 
