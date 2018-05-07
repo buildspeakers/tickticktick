@@ -1,11 +1,9 @@
-1. Bring in gulp/scss
-
-2. Improve Styling
+1. Improve Styling
     - icon for delete & checkboxes (look at toggle class for checkbox on vanillamvc version)
 
-3. edit 
+2. edit todo 
     - double click to edit / button to save
-    -edit handler (button / double click)
-    -save handler
+    - edit handler (button / double click)
+    - save handler
 
-4. Create some AJAX methods
+4. Start node.js / express backend
