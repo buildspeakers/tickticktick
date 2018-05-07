@@ -1,9 +1,11 @@
-1. Improve Styling
-    - icon for delete & checkboxes (look at toggle class for checkbox on vanillamvc version)
+1. Switch to use local storage
 
-2. edit todo 
+2. edit todo functionality
     - double click to edit / button to save
     - edit handler (button / double click)
     - save handler
+
+3. Improve Styling
+    - icon for delete & checkboxes (look at toggle class for checkbox on vanillamvc version)
 
 4. Start node.js / express backend

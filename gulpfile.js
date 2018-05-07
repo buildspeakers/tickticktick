@@ -24,6 +24,7 @@ gulp.task('concatJs', () => {
     // libs eg.
     // 'node_modules/jQuery/dist/jquery.js',
     // My js
+    'src/js/functions.js',
     'src/js/app.js'
   ])
     .pipe(concat('app.js'))
@@ -51,7 +52,8 @@ gulp.task('watchFiles', () => {
 // start browser-sync server
 gulp.task('browserSync', () => {
   browserSync.init({
-    server: "./dist",
+    server: "./dist",    
+    browser: "chrome",
     notify: false
   });
 })
