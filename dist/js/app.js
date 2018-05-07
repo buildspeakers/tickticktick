@@ -6,23 +6,17 @@ function setMeta(meta) {
   localStorage.setItem("meta", JSON.stringify(meta));
 }
 
-
-function addLocalStore(todoText) {
+function addLocalStore(newTodo) {
   // Increase Count
   let meta = getMeta();
   meta.count++;
   setMeta(meta);
-
-  // New todo for storage
-  let newId = meta.count;  
-  let todoData = {
-    id: newId,
-    title: todoText,
-    complete: false
-  }
   // Store new data object
-  localStorage.setItem(newId, JSON.stringify(todoData));
-  // Update count in local storage  
+  localStorage.setItem(newTodo.id, JSON.stringify(newTodo));    
+}
+
+function deleteLocalStore(id) {
+  localStorage.removeItem(id);
 }
 /*
 *
@@ -56,13 +50,25 @@ function removeClassFromAll(selector, classname) {
 // Bound to add button
 function addTodo() {
   let todoText = todoInput.value;
-  if (todoText != "") {    
-    let newTodo = storeTodo(todoText);
-    // clear input field maintaining focus
+  if (todoText != "") {
+
+    // New todo Obj to play with
+    let newTodo = {
+      id: getMeta().count + 1,
+      title: todoText,      
+      complete: false
+    }
+
+    // Update local storage
+    addLocalStore(newTodo);
+
+    // Clear inout field
     todoInput.value = "";
     todoInput.focus();
-    // Append and bind events
+
+    // Append new DOM element
     appendTodo(newTodo);
+
     bindTodoEvents();
     // Animate it
     let dataId = "[data-id=\"" + newTodo.id + "\"]";
@@ -80,21 +86,20 @@ function addTodo() {
 
 // Bound to delete button
 function deleteTodo(dataId) {
+  deleteLocalStore(dataId);
   unStoreTodo(dataId);
   unappendTodo(dataId)
 }
 
 
 // ADD TO OR REMOVE FORM STORAGE
-function storeTodo(todoText) {
+function storeTodo(todoText) {  
 
   // Old storage
   let newTodo = {};
   newTodo.name = todoText;
   newTodo.completed = false;
   newTodo.id = todos.length + 1;
-
-  addLocalStore(todoText);
 
   // Old storage
   todos.push(newTodo);
@@ -112,6 +117,48 @@ function unStoreTodo(dataId) {
 }
 
 
+function createListItem(newTodo) {
+  let listItem = document.createElement('li'); // Using document.createElement() - element must be of type 'Node' to use appendChild()
+  listItem.className = 'todo-item';
+  listItem.setAttribute('data-id', newTodo.id);
+
+  let checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.className = 'todo-item__checkbox';
+
+  let title = document.createElement('span');
+  title.innerText = newTodo.title;
+
+  let deleteButton = document.createElement('button');
+  deleteButton.className = 'todo-button todo-item__delete';
+  deleteButton.innerText = 'Delete';
+
+  if (newTodo.completed === true) {
+    listItem.classList.add('todo-item--complete');
+    checkbox.setAttribute('checked', 'checked');
+  }
+
+  listItem.appendChild(checkbox);
+  listItem.appendChild(title);
+  listItem.appendChild(deleteButton);
+
+  return listItem;
+
+}
+
+// Toggle complete/incomplete
+function changeCheckbox(dataId) {
+  console.log('Checkbox Fires!!!');
+  for (let i = 0, l = todos.length; i < l; i++) {
+    if (todos[i].id == dataId) {
+      if (todos[i].completed === false ? todos[i].completed = true : todos[i].completed = false)
+        break;
+    }
+  }
+  if (view != 'ALL') unappendTodo(dataId);
+}
+
+
 /*
 *
 *   CHANGE DOM
@@ -120,7 +167,7 @@ function unStoreTodo(dataId) {
 
 function appendTodo(newTodo) {
   let listItem = createListItem(newTodo);
-  qs('.todo-list').appendChild(listItem);
+  todoListUl.appendChild(listItem);
 }
 
 function unappendTodo(dataId) {
@@ -138,50 +185,6 @@ function unappendTodo(dataId) {
   }
 }
 
-
-function createListItem(newTodo) {
-  let listItem = document.createElement('li'); // Using document.createElement() - element must be of type 'Node' to use appendChild()
-  listItem.className = 'todo-item';
-  listItem.setAttribute('data-id', newTodo.id);
-
-  let checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.className = 'todo-item__checkbox';
-
-  let name = document.createElement('span');
-  name.innerText = newTodo.name;
-
-  let deleteButton = document.createElement('button');
-  deleteButton.className = 'todo-button todo-item__delete';
-  deleteButton.innerText = 'Delete';
-
-  if (newTodo.completed === true) {
-    listItem.classList.add('todo-item--complete');
-    checkbox.setAttribute('checked', 'checked');
-  }
-
-  listItem.appendChild(checkbox);
-  listItem.appendChild(name);
-  listItem.appendChild(deleteButton);
-
-  return listItem;
-
-}
-
-
-
-
-
-function changeCheckbox(dataId) {
-  console.log('Checkbox Fires!!!');
-  for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == dataId) {
-      if (todos[i].completed === false ? todos[i].completed = true : todos[i].completed = false)      
-      break;
-    }
-  }
-  if (view != 'ALL') unappendTodo(dataId);
-}
 
 
 /*
@@ -279,7 +282,9 @@ let todoInput = qs(".todo-add__input");
 let addButton = qs('.todo-button__add');
 let filterAll = qs('.filter__all');
 let filterIncomplete = qs('.filter__incomplete');
-let filterComplete = qs('.filter__complete')
+let filterComplete = qs('.filter__complete');
+
+let todoListUl = qs('.todo-list');
 
 
 //

@@ -6,21 +6,15 @@ function setMeta(meta) {
   localStorage.setItem("meta", JSON.stringify(meta));
 }
 
-
-function addLocalStore(todoText) {
+function addLocalStore(newTodo) {
   // Increase Count
   let meta = getMeta();
   meta.count++;
   setMeta(meta);
-
-  // New todo for storage
-  let newId = meta.count;  
-  let todoData = {
-    id: newId,
-    title: todoText,
-    complete: false
-  }
   // Store new data object
-  localStorage.setItem(newId, JSON.stringify(todoData));
-  // Update count in local storage  
+  localStorage.setItem(newTodo.id, JSON.stringify(newTodo));    
+}
+
+function deleteLocalStore(id) {
+  localStorage.removeItem(id);
 }

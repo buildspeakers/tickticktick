@@ -31,7 +31,9 @@ let todoInput = qs(".todo-add__input");
 let addButton = qs('.todo-button__add');
 let filterAll = qs('.filter__all');
 let filterIncomplete = qs('.filter__incomplete');
-let filterComplete = qs('.filter__complete')
+let filterComplete = qs('.filter__complete');
+
+let todoListUl = qs('.todo-list');
 
 
 //
