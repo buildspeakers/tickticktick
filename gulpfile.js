@@ -32,9 +32,8 @@ gulp.task('concatJs', () => {
 
 // reload
 gulp.task('reload', () => {
-  browserSync.reload();
-  done();
-})
+  browserSync.reload();  
+});
 
 // compile sass and reload
 gulp.task('sassReload', ['compileSass'], (done) => {
