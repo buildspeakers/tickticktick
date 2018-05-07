@@ -29,19 +29,13 @@ function addLocalStore(newTodo) {
   meta.count++;
   setMeta(meta);
 
-  // Store new data object
+  // Get todos obj from localStorage
   let todos = JSON.parse(localStorage.getItem("todos"));
+  // Give it new todo obj
+  todos[newTodo.id] = newTodo;
+  // Restore todos obj
+  localStorage.setItem("todos", JSON.stringify(todos));   
 
-  console.log(todos);
-
-  console.log("newTodo.id : "+newTodo.id);
-
-  let id = newTodo.id; 
-  todos[id] = newTodo;
-
-  console.log(newTodo.id);
-
-  localStorage.setItem("todos", JSON.stringify(todos));    
 }
 
 function deleteLocalStore(id) {
@@ -50,9 +44,14 @@ function deleteLocalStore(id) {
 
 // Complete / Incomplete
 function toggleLocalStore(id) {
-  let todo = getTodo(id);
-  if (todo.complete == false ? todo.complete = true : todo.complete = false);
-  setTodo(todo);
+
+  // Get todos obj from localStorage
+  let todos = JSON.parse(localStorage.getItem("todos"));
+  // Toggle
+  if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
+  // Restore todos obj
+  localStorage.setItem("todos", JSON.stringify(todos));  
+  
 }
 /*
 *
