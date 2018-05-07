@@ -13,42 +13,25 @@ if (!localStorage.getItem("meta")) {
   localStorage.setItem("meta", JSON.stringify(metaData))
 } 
 
+// On load
+
+  // If there is already data render todos based on that
+
+
+
+
+
 
 // Storage / state
 let todos = [];
 let view = 'ALL';
 
-// input field
+// Get DOM elements 
 let todoInput = qs(".todo-add__input");
-
-// Initial event listeners
-
-// Add todo
-qs('.todo-button__add').addEventListener('click', addTodo);
-// add event when enter key pressed
-todoInput.addEventListener('keyup', function (event) {
-  if (event.which === 13) {
-    addTodo();
-  }
-});
-
-// Filter todos
-qs('.filter__all').addEventListener('click', function () {
-  view = 'ALL';
-  swapActiveClass(this);
-  filterTodos();
-});
-qs('.filter__incomplete').addEventListener('click', function () {
-  view = 'INCOMPLETE';
-  swapActiveClass(this);
-  filterTodos();
-});
-qs('.filter__complete').addEventListener('click', function () {
-  view = 'COMPLETE';
-  swapActiveClass(this);
-  filterTodos();
-});
-
+let addButton = qs('.todo-button__add');
+let filterAll = qs('.filter__all');
+let filterIncomplete = qs('.filter__incomplete');
+let filterComplete = qs('.filter__complete')
 
 
 //
@@ -56,3 +39,42 @@ qs('.filter__complete').addEventListener('click', function () {
 //
 
   // Look at local storage and render list based on what's there
+
+
+
+
+
+
+
+
+
+
+
+//
+// Initial Button event listeners
+//
+// Add todo
+addButton.addEventListener('click', addTodo);
+todoInput.addEventListener('keyup', function (event) {
+  // if key is return
+  if (event.which === 13) {
+    addTodo();
+  }
+});
+
+// Filter todos
+filterAll.addEventListener('click', function () {
+  view = 'ALL';
+  swapActiveClass(this);
+  filterTodos();
+});
+filterIncomplete.addEventListener('click', function () {
+  view = 'INCOMPLETE';
+  swapActiveClass(this);
+  filterTodos();
+});
+filterComplete.addEventListener('click', function () {
+  view = 'COMPLETE';
+  swapActiveClass(this);
+  filterTodos();
+});

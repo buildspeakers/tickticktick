@@ -1,10 +1,6 @@
 /*
 *
-*
-*
 *    HELPERS
-*
-*
 *
 */
 function qs(selector) {
@@ -33,7 +29,6 @@ function removeClassFromAll(selector, classname) {
 
 // Bound to add button
 function addTodo() {
-  console.log("addTodo() fires");  
   let todoText = todoInput.value;
   if (todoText != "") {    
     let newTodo = storeTodo(todoText);
@@ -75,8 +70,9 @@ function storeTodo(todoText) {
 
   // Existing meta data
   let meta = JSON.parse(localStorage.getItem("meta"));
-  // Create new ID number
-  let newId = meta.count + 1;
+  meta.count++;  
+  let newId = meta.count;
+  console.log('new id: ' + newId);
   // New local data object
   let todoData = {
     id: newId,
@@ -85,11 +81,10 @@ function storeTodo(todoText) {
   }
   // Store new data object
   localStorage.setItem(newTodo.id, JSON.stringify(todoData));
-  // Increase meta count
-  meta.count++;
+  // Update count in local storage
   localStorage.setItem("meta", JSON.stringify(meta));
 
-
+  // Old storage
   todos.push(newTodo);
   return newTodo;
 }
