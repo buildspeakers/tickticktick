@@ -78,3 +78,4 @@ filterComplete.addEventListener('click', function () {
   swapActiveClass(this);
   filterTodos();
 });
+

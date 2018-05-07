@@ -68,21 +68,7 @@ function storeTodo(todoText) {
   newTodo.completed = false;
   newTodo.id = todos.length + 1;
 
-  // Existing meta data
-  let meta = JSON.parse(localStorage.getItem("meta"));
-  meta.count++;  
-  let newId = meta.count;
-  console.log('new id: ' + newId);
-  // New local data object
-  let todoData = {
-    id: newId,
-    title: todoText,
-    complete: false
-  }
-  // Store new data object
-  localStorage.setItem(newTodo.id, JSON.stringify(todoData));
-  // Update count in local storage
-  localStorage.setItem("meta", JSON.stringify(meta));
+  addLocalStore(todoText);
 
   // Old storage
   todos.push(newTodo);

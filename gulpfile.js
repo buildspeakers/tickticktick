@@ -24,6 +24,7 @@ gulp.task('concatJs', () => {
     // libs eg.
     // 'node_modules/jQuery/dist/jquery.js',
     // My js
+    'src/js/store.js',
     'src/js/functions.js',
     'src/js/app.js'
   ])
@@ -32,8 +33,9 @@ gulp.task('concatJs', () => {
 });
 
 // reload
-gulp.task('reload', () => {
-  browserSync.reload();  
+gulp.task('reload', (done) => {
+  browserSync.reload();
+  done();  
 });
 
 // compile sass and reload
