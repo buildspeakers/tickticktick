@@ -69,7 +69,6 @@ function addTodo() {
     // Append new DOM element
     appendTodo(newTodo);
 
-    bindTodoEvents();
     // Animate it
     let dataId = "[data-id=\"" + newTodo.id + "\"]";
     TweenMax.to(dataId, 0.15, {
@@ -128,6 +127,9 @@ function createListItem(newTodo) {
   let checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.className = 'todo-item__checkbox';
+  checkbox.addEventListener('change', function () {
+    changeCheckbox(newTodo.id);
+  });
 
   let title = document.createElement('span');
   title.innerText = newTodo.title;
@@ -236,21 +238,7 @@ function filterTodos() {
     ease: Power2.easeIn,
     x: 0
   }, 0.05);
-  bindTodoEvents();
-}
-
-function bindTodoEvents() {  
-  let todoEls = qsa('.todo-item');
-  for (let i = 0, l = todoEls.length; i < l; i++) {
-    let todo = todoEls[i];
-    let dataId = todo.getAttribute('data-id');
-    
-    // checkbox event
-    todo.querySelector('.todo-item__checkbox').addEventListener('change', function() {
-      changeCheckbox(dataId);
-    });
-
-  }
+  // bindTodoEvents();
 }
 // Filter vars
 const ALL = "ALL";
