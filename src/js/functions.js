@@ -20,6 +20,10 @@ function removeClassFromAll(selector, classname) {
   }
 }
 
+function newId(title) {
+  return `${title}_${Math.floor(Math.random() * 1000000000)}`;
+}
+
 
 /*
 *
@@ -34,7 +38,7 @@ function addTodo() {
 
     // New todo Obj to play with
     let newTodo = {
-      id: getMeta().count + 1,
+      id: newId(todoText),
       title: todoText,      
       complete: false
     }

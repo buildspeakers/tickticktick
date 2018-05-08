@@ -24,10 +24,10 @@ function setTodo(todo) {
 
 function addLocalStore(newTodo) {
 
-  // Increase Count
-  let meta = getMeta();
-  meta.count++;
-  setMeta(meta);
+  // // Increase Count
+  // let meta = getMeta();
+  // meta.count++;
+  // setMeta(meta);
 
   // Get todos obj from localStorage
   let todos = JSON.parse(localStorage.getItem("todos"));
@@ -39,7 +39,19 @@ function addLocalStore(newTodo) {
 }
 
 function deleteLocalStore(id) {
-  localStorage.removeItem(id);
+
+  // // Decrease Count
+  // let meta = getMeta();
+  // meta.count--;
+  // setMeta(meta);
+
+  // Get todos obj from localStorage
+  let todos = JSON.parse(localStorage.getItem("todos"));
+  // Remove todo
+  delete todos[id];
+  // Restore todos obj
+  localStorage.setItem("todos", JSON.stringify(todos)); 
+
 }
 
 // Complete / Incomplete
@@ -51,5 +63,5 @@ function toggleLocalStore(id) {
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
   // Restore todos obj
   localStorage.setItem("todos", JSON.stringify(todos));  
-  
+
 }

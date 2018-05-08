@@ -6,8 +6,7 @@ const COMPLETE = "COMPLETE";
 // Initialise Local Storage
 // Set counter if none exists
 if (!localStorage.getItem("meta")) {
-  let metaData = {
-    count: 0,
+  let metaData = {    
     view: ALL
   }
   localStorage.setItem("meta", JSON.stringify(metaData));

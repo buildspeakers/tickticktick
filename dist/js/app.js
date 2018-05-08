@@ -24,10 +24,10 @@ function setTodo(todo) {
 
 function addLocalStore(newTodo) {
 
-  // Increase Count
-  let meta = getMeta();
-  meta.count++;
-  setMeta(meta);
+  // // Increase Count
+  // let meta = getMeta();
+  // meta.count++;
+  // setMeta(meta);
 
   // Get todos obj from localStorage
   let todos = JSON.parse(localStorage.getItem("todos"));
@@ -39,7 +39,19 @@ function addLocalStore(newTodo) {
 }
 
 function deleteLocalStore(id) {
-  localStorage.removeItem(id);
+
+  // // Decrease Count
+  // let meta = getMeta();
+  // meta.count--;
+  // setMeta(meta);
+
+  // Get todos obj from localStorage
+  let todos = JSON.parse(localStorage.getItem("todos"));
+  // Remove todo
+  delete todos[id];
+  // Restore todos obj
+  localStorage.setItem("todos", JSON.stringify(todos)); 
+
 }
 
 // Complete / Incomplete
@@ -51,7 +63,7 @@ function toggleLocalStore(id) {
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
   // Restore todos obj
   localStorage.setItem("todos", JSON.stringify(todos));  
-  
+
 }
 /*
 *
@@ -75,6 +87,10 @@ function removeClassFromAll(selector, classname) {
   }
 }
 
+function newId(title) {
+  return `${title}_${Math.floor(Math.random() * 1000000000)}`;
+}
+
 
 /*
 *
@@ -89,7 +105,7 @@ function addTodo() {
 
     // New todo Obj to play with
     let newTodo = {
-      id: getMeta().count + 1,
+      id: newId(todoText),
       title: todoText,      
       complete: false
     }
@@ -283,8 +299,7 @@ const COMPLETE = "COMPLETE";
 // Initialise Local Storage
 // Set counter if none exists
 if (!localStorage.getItem("meta")) {
-  let metaData = {
-    count: 0,
+  let metaData = {    
     view: ALL
   }
   localStorage.setItem("meta", JSON.stringify(metaData));
