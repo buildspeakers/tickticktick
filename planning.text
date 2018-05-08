@@ -1,5 +1,4 @@
-1. Bug - Checkbox class not being added/removed on change 
-    
+1. UX - Switch to Incomplete View if Adding new todo in complete view    
 
 2. edit todo functionality
     - double click to edit / button to save
@@ -7,6 +6,8 @@
     - save handler
 
 3. Improve Styling
-    - icon for delete & checkboxes (look at toggle class for checkbox on vanillamvc version)
+    - bin icon for delete
+    - pen icon for edit or doubleclick
+    - SVG checkboxes (look at toggle class for checkbox on vanillamvc version)
 
 4. Start node.js / express backend
