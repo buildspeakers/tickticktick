@@ -87,8 +87,8 @@ function createListItem(newTodo) {
   let checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.className = 'todo-item__checkbox';
-  checkbox.addEventListener('change', function () {
-    changeCheckbox(newTodo.id);
+  checkbox.addEventListener('change', function(event) {
+    changeCheckbox(newTodo.id, event.target);
   });
 
   let title = document.createElement('span');
@@ -101,7 +101,7 @@ function createListItem(newTodo) {
     deleteTodo(newTodo.id);
   });
 
-  if (newTodo.completed === true) {
+  if (newTodo.complete === true) {
     listItem.classList.add('todo-item--complete');
     checkbox.setAttribute('checked', 'checked');
   }
@@ -115,8 +115,9 @@ function createListItem(newTodo) {
 }
 
 // Toggle complete/incomplete
-function changeCheckbox(id) {
-  toggleLocalStore(id);  
+function changeCheckbox(id, target) {
+  toggleLocalStore(id);
+  target.classList.add('todo-item--complete');
   if (getMeta().view != ALL) unappendTodo(id);
 }
 

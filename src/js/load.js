@@ -30,6 +30,7 @@ let todoListUl = qs('.todo-list');
 
   // Look at local storage and render list based on what's there
 
+renderTodos();
 
 
 //
