@@ -11,48 +11,51 @@ function qsa(selector) {
   return document.querySelectorAll(selector);
 }
 
-function removeClassFromAll(selector, classname) {
-  let buttons = qsa(selector);
+// Filter Helpers
+function removeClassFromAll(target) { 
+  let buttons = target.parentNode.querySelectorAll('button');
   for (let i = 0, l = buttons.length; i < l; i++) {
-    if (buttons[i].classList.contains(classname)) {
-      buttons[i].classList.remove(classname)
+    if (buttons[i].classList.contains('todo-button__filter--active')) {
+      buttons[i].classList.remove('todo-button__filter--active')
     }
   }
+  target.classList.add('todo-button__filter--active');
 }
+
+function filter(newView, target) {
+  setView(newView);
+  // Must remove active class from whatever filter button has it
+  // Then add filter class to button that's been clicked
+  removeClassFromAll(target);
+  renderTodos();
+}
+
+
+/*
+*   Update todos
+*/ 
 
 function newId(title) {
   return `${title}_${Math.floor(Math.random() * 1000000000)}`;
 }
 
-
-/*
-*
-*   Handle events
-*
-*/ 
-
 // Bound to add button
 function addTodo() {
   let todoText = todoInput.value;
   if (todoText != "") {
-
     // New todo Obj to play with
     let newTodo = {
       id: newId(todoText),
       title: todoText,      
       complete: false
     }
-
     // Update local storage
     addLocalStore(newTodo);
-
     // Clear inout field
     todoInput.value = "";
     todoInput.focus();
-
     // Append new DOM element
     appendTodo(newTodo);
-
     // Animate it
     let dataId = "[data-id=\"" + newTodo.id + "\"]";
     TweenMax.to(dataId, 0.15, {
@@ -70,37 +73,10 @@ function addTodo() {
 // Bound to delete button
 function deleteTodo(dataId) {
   deleteLocalStore(dataId);
-
-  // Old storage
-  unStoreTodo(dataId);
-
   unappendTodo(dataId)
 }
 
 
-// ADD TO OR REMOVE FORM STORAGE
-function storeTodo(todoText) {  
-
-  // Old storage
-  let newTodo = {};
-  newTodo.name = todoText;
-  newTodo.completed = false;
-  newTodo.id = todos.length + 1;
-
-  // Old storage
-  todos.push(newTodo);
-  return newTodo;
-}
-
-
-function unStoreTodo(dataId) {
-  for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == dataId) {
-      todos = todos.slice(0, i).concat(todos.slice(i + 1));
-      break;
-    }
-  }
-}
 
 
 function createListItem(newTodo) {
@@ -140,13 +116,7 @@ function createListItem(newTodo) {
 
 // Toggle complete/incomplete
 function changeCheckbox(id) {
-  toggleLocalStore(id);
-  for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == id) {
-      if (todos[i].completed === false ? todos[i].completed = true : todos[i].completed = false)
-        break;
-    }
-  }
+  toggleLocalStore(id);  
   if (getMeta().view != ALL) unappendTodo(id);
 }
 
@@ -194,19 +164,32 @@ function swapActiveClass(target) {
 
 // Write list to DOM
 function renderTodos() {
-  if (view == 'COMPLETE') {
-    filteredTodos = todos.filter(todo => todo.completed == true);
-  } else if (view == 'INCOMPLETE') {
-    filteredTodos = todos.filter(todo => todo.completed == false);
+
+  // Get todos obj from localStorage
+  let todos = getTodos();
+
+  // Create array to be filtered
+  let todosArray = [];
+  for (let key in todos) todosArray.push(todos[key]);
+
+  if (getMeta().view == COMPLETE) {
+    filteredTodos = todosArray.filter(todo => todo.complete == true);
+  } else if (getMeta().view == INCOMPLETE) {
+    filteredTodos = todosArray.filter(todo => todo.complete == false);
   } else {
-    filteredTodos = todos;
+    filteredTodos = todosArray;
   }
+
+
+  // Add to dom
   let ul = qs('.todo-list');
   ul.innerHTML = '';
   for (let i = 0, l = filteredTodos.length; i < l; i++) {
     ul.appendChild(createListItem(filteredTodos[i]));
   }
-  // animatey
+
+
+  // Fade in one by one
   let tl1 = new TimelineMax();
   let tl2 = new TimelineMax();
   // GSAP staggerTo...

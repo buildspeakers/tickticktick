@@ -4,7 +4,6 @@ const INCOMPLETE = "INCOMPLETE"
 const COMPLETE = "COMPLETE";
 
 // Initialise Local Storage
-// Set counter if none exists
 if (!localStorage.getItem("meta")) {
   let metaData = {    
     view: ALL
@@ -13,15 +12,6 @@ if (!localStorage.getItem("meta")) {
   localStorage.setItem("todos", JSON.stringify({}));
 } 
 
-// On load
-
-  // If there is already data render todos based on that
-
-
-
-// Storage / state
-let todos = [];
-let view = 'ALL';
 
 // Get DOM elements 
 let todoInput = qs(".todo-add__input");
@@ -29,7 +19,8 @@ let addButton = qs('.todo-button__add');
 let filterAll = qs('.filter__all');
 let filterIncomplete = qs('.filter__incomplete');
 let filterComplete = qs('.filter__complete');
-
+let todoFilter = qs('todo-filter');
+let filterButtons = qsa('button', todoFilter);
 let todoListUl = qs('.todo-list');
 
 
@@ -41,11 +32,10 @@ let todoListUl = qs('.todo-list');
 
 
 
-
 //
-// Initial Button event listeners
+// Bind Events
 //
-// Add todo
+// Add todo events
 addButton.addEventListener('click', addTodo);
 todoInput.addEventListener('keyup', function (event) {
   // if key is return
@@ -54,21 +44,14 @@ todoInput.addEventListener('keyup', function (event) {
   }
 });
 
-// Filter todos
-
-function filter(newView) {
-  setView(newView);
-  swapActiveClass(this);
-  renderTodos();
-}
-
-filterAll.addEventListener('click', function() {
-  filter(ALL);
+// Filter events
+filterAll.addEventListener('click', function(event) {
+  filter(ALL, event.target);
 });
-filterIncomplete.addEventListener('click', function() {
-  filter(INCOMPLETE);
+filterIncomplete.addEventListener('click', function(event) {
+  filter(INCOMPLETE, event.target);
 });
-filterComplete.addEventListener('click', function() {
-  filter(COMPLETE);
+filterComplete.addEventListener('click', function(event) {
+  filter(COMPLETE, event.target);
 });
 

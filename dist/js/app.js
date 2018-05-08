@@ -1,11 +1,10 @@
-// Increase / Reduce todo count
+// Change view
 function getMeta() {
   return JSON.parse(localStorage.getItem("meta"));
 }
 function setMeta(meta) {
   localStorage.setItem("meta", JSON.stringify(meta));
 }
-
 function setView(newView) {
   let newMeta = getMeta();
   newMeta.view = newView;
@@ -13,24 +12,14 @@ function setView(newView) {
 }
 
 
-function getTodo(id) {
-  // return individual todo
-  return JSON.parse(localStorage.getItem(id));
-}
-function setTodo(todo) {
-  deleteLocalStore(todo.id);  
-  localStorage.setItem(todo.id, JSON.stringify(todo));
+// Update todos
+function getTodos() {
+  return JSON.parse(localStorage.getItem("todos"));
 }
 
 function addLocalStore(newTodo) {
 
-  // // Increase Count
-  // let meta = getMeta();
-  // meta.count++;
-  // setMeta(meta);
-
-  // Get todos obj from localStorage
-  let todos = JSON.parse(localStorage.getItem("todos"));
+  let todos = getTodos();
   // Give it new todo obj
   todos[newTodo.id] = newTodo;
   // Restore todos obj
@@ -40,13 +29,7 @@ function addLocalStore(newTodo) {
 
 function deleteLocalStore(id) {
 
-  // // Decrease Count
-  // let meta = getMeta();
-  // meta.count--;
-  // setMeta(meta);
-
-  // Get todos obj from localStorage
-  let todos = JSON.parse(localStorage.getItem("todos"));
+  let todos = getTodos();
   // Remove todo
   delete todos[id];
   // Restore todos obj
@@ -57,8 +40,7 @@ function deleteLocalStore(id) {
 // Complete / Incomplete
 function toggleLocalStore(id) {
 
-  // Get todos obj from localStorage
-  let todos = JSON.parse(localStorage.getItem("todos"));
+  let todos = getTodos();
   // Toggle
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
   // Restore todos obj
@@ -78,48 +60,51 @@ function qsa(selector) {
   return document.querySelectorAll(selector);
 }
 
-function removeClassFromAll(selector, classname) {
-  let buttons = qsa(selector);
+// Filter Helpers
+function removeClassFromAll(target) { 
+  let buttons = target.parentNode.querySelectorAll('button');
   for (let i = 0, l = buttons.length; i < l; i++) {
-    if (buttons[i].classList.contains(classname)) {
-      buttons[i].classList.remove(classname)
+    if (buttons[i].classList.contains('todo-button__filter--active')) {
+      buttons[i].classList.remove('todo-button__filter--active')
     }
   }
+  target.classList.add('todo-button__filter--active');
 }
+
+function filter(newView, target) {
+  setView(newView);
+  // Must remove active class from whatever filter button has it
+  // Then add filter class to button that's been clicked
+  removeClassFromAll(target);
+  renderTodos();
+}
+
+
+/*
+*   Update todos
+*/ 
 
 function newId(title) {
   return `${title}_${Math.floor(Math.random() * 1000000000)}`;
 }
 
-
-/*
-*
-*   Handle events
-*
-*/ 
-
 // Bound to add button
 function addTodo() {
   let todoText = todoInput.value;
   if (todoText != "") {
-
     // New todo Obj to play with
     let newTodo = {
       id: newId(todoText),
       title: todoText,      
       complete: false
     }
-
     // Update local storage
     addLocalStore(newTodo);
-
     // Clear inout field
     todoInput.value = "";
     todoInput.focus();
-
     // Append new DOM element
     appendTodo(newTodo);
-
     // Animate it
     let dataId = "[data-id=\"" + newTodo.id + "\"]";
     TweenMax.to(dataId, 0.15, {
@@ -137,37 +122,10 @@ function addTodo() {
 // Bound to delete button
 function deleteTodo(dataId) {
   deleteLocalStore(dataId);
-
-  // Old storage
-  unStoreTodo(dataId);
-
   unappendTodo(dataId)
 }
 
 
-// ADD TO OR REMOVE FORM STORAGE
-function storeTodo(todoText) {  
-
-  // Old storage
-  let newTodo = {};
-  newTodo.name = todoText;
-  newTodo.completed = false;
-  newTodo.id = todos.length + 1;
-
-  // Old storage
-  todos.push(newTodo);
-  return newTodo;
-}
-
-
-function unStoreTodo(dataId) {
-  for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == dataId) {
-      todos = todos.slice(0, i).concat(todos.slice(i + 1));
-      break;
-    }
-  }
-}
 
 
 function createListItem(newTodo) {
@@ -207,13 +165,7 @@ function createListItem(newTodo) {
 
 // Toggle complete/incomplete
 function changeCheckbox(id) {
-  toggleLocalStore(id);
-  for (let i = 0, l = todos.length; i < l; i++) {
-    if (todos[i].id == id) {
-      if (todos[i].completed === false ? todos[i].completed = true : todos[i].completed = false)
-        break;
-    }
-  }
+  toggleLocalStore(id);  
   if (getMeta().view != ALL) unappendTodo(id);
 }
 
@@ -261,19 +213,32 @@ function swapActiveClass(target) {
 
 // Write list to DOM
 function renderTodos() {
-  if (view == 'COMPLETE') {
-    filteredTodos = todos.filter(todo => todo.completed == true);
-  } else if (view == 'INCOMPLETE') {
-    filteredTodos = todos.filter(todo => todo.completed == false);
+
+  // Get todos obj from localStorage
+  let todos = getTodos();
+
+  // Create array to be filtered
+  let todosArray = [];
+  for (let key in todos) todosArray.push(todos[key]);
+
+  if (getMeta().view == COMPLETE) {
+    filteredTodos = todosArray.filter(todo => todo.complete == true);
+  } else if (getMeta().view == INCOMPLETE) {
+    filteredTodos = todosArray.filter(todo => todo.complete == false);
   } else {
-    filteredTodos = todos;
+    filteredTodos = todosArray;
   }
+
+
+  // Add to dom
   let ul = qs('.todo-list');
   ul.innerHTML = '';
   for (let i = 0, l = filteredTodos.length; i < l; i++) {
     ul.appendChild(createListItem(filteredTodos[i]));
   }
-  // animatey
+
+
+  // Fade in one by one
   let tl1 = new TimelineMax();
   let tl2 = new TimelineMax();
   // GSAP staggerTo...
@@ -297,7 +262,6 @@ const INCOMPLETE = "INCOMPLETE"
 const COMPLETE = "COMPLETE";
 
 // Initialise Local Storage
-// Set counter if none exists
 if (!localStorage.getItem("meta")) {
   let metaData = {    
     view: ALL
@@ -306,15 +270,6 @@ if (!localStorage.getItem("meta")) {
   localStorage.setItem("todos", JSON.stringify({}));
 } 
 
-// On load
-
-  // If there is already data render todos based on that
-
-
-
-// Storage / state
-let todos = [];
-let view = 'ALL';
 
 // Get DOM elements 
 let todoInput = qs(".todo-add__input");
@@ -322,7 +277,8 @@ let addButton = qs('.todo-button__add');
 let filterAll = qs('.filter__all');
 let filterIncomplete = qs('.filter__incomplete');
 let filterComplete = qs('.filter__complete');
-
+let todoFilter = qs('todo-filter');
+let filterButtons = qsa('button', todoFilter);
 let todoListUl = qs('.todo-list');
 
 
@@ -334,11 +290,10 @@ let todoListUl = qs('.todo-list');
 
 
 
-
 //
-// Initial Button event listeners
+// Bind Events
 //
-// Add todo
+// Add todo events
 addButton.addEventListener('click', addTodo);
 todoInput.addEventListener('keyup', function (event) {
   // if key is return
@@ -347,21 +302,14 @@ todoInput.addEventListener('keyup', function (event) {
   }
 });
 
-// Filter todos
-
-function filter(newView) {
-  setView(newView);
-  swapActiveClass(this);
-  renderTodos();
-}
-
-filterAll.addEventListener('click', function() {
-  filter(ALL);
+// Filter events
+filterAll.addEventListener('click', function(event) {
+  filter(ALL, event.target);
 });
-filterIncomplete.addEventListener('click', function() {
-  filter(INCOMPLETE);
+filterIncomplete.addEventListener('click', function(event) {
+  filter(INCOMPLETE, event.target);
 });
-filterComplete.addEventListener('click', function() {
-  filter(COMPLETE);
+filterComplete.addEventListener('click', function(event) {
+  filter(COMPLETE, event.target);
 });
 
