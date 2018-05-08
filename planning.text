@@ -1,8 +1,4 @@
-1. Switch to use local storage
-
-    // Render based on whats in store on load
-
-    // Filter function
+1. Bug - Checkbox class not being added/removed on change 
     
 
 2. edit todo functionality
