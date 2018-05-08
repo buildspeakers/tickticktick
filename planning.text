@@ -1,8 +1,8 @@
 1. Switch to use local storage
 
-    // Seperate meta and todos objects in storage
+    // Render based on whats in store on load
 
-    // get todos, update it and replace it in storage when updating a todo
+    // Filter function
     
 
 2. edit todo functionality
