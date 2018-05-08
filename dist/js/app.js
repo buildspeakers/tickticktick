@@ -348,22 +348,20 @@ todoInput.addEventListener('keyup', function (event) {
 });
 
 // Filter todos
-filterAll.addEventListener('click', function () {
-  setView(ALL);
-  view = 'ALL';
+
+function filter(newView) {
+  setView(newView);
   swapActiveClass(this);
   renderTodos();
+}
+
+filterAll.addEventListener('click', function() {
+  filter(ALL);
 });
-filterIncomplete.addEventListener('click', function () {
-  setView(INCOMPLETE);
-  view = 'INCOMPLETE';
-  swapActiveClass(this);
-  renderTodos();
+filterIncomplete.addEventListener('click', function() {
+  filter(INCOMPLETE);
 });
-filterComplete.addEventListener('click', function () {
-  setView(COMPLETE);
-  view = 'COMPLETE';
-  swapActiveClass(this);
-  renderTodos();
+filterComplete.addEventListener('click', function() {
+  filter(COMPLETE);
 });
 
