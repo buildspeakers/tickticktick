@@ -61,7 +61,7 @@ function qsa(selector) {
 }
 
 // Filter Helpers
-function removeClassFromAll(target) { 
+function markActiveClass(target) {
   let buttons = target.parentNode.querySelectorAll('button');
   for (let i = 0, l = buttons.length; i < l; i++) {
     if (buttons[i].classList.contains('todo-button__filter--active')) {
@@ -75,10 +75,9 @@ function filter(newView, target) {
   setView(newView);
   // Must remove active class from whatever filter button has it
   // Then add filter class to button that's been clicked
-  removeClassFromAll(target);
+  markActiveClass(target);
   renderTodos();
 }
-
 
 /*
 *   Update todos
@@ -166,7 +165,11 @@ function createListItem(newTodo) {
 // Toggle complete/incomplete
 function changeCheckbox(id, target) {
   toggleLocalStore(id);
-  target.classList.add('todo-item--complete');
+  if (target.parentNode.classList.contains('todo-item--complete')) {
+    target.parentNode.classList.remove('todo-item--complete');
+  } else {
+    target.parentNode.classList.add('todo-item--complete');
+  }
   if (getMeta().view != ALL) unappendTodo(id);
 }
 
@@ -198,21 +201,7 @@ function unappendTodo(dataId) {
 }
 
 
-
-/*
-*
-*   Filter List
-*
-*/
-
-function swapActiveClass(target) {
-  removeClassFromAll('.todo-button', 'todo-button__filter--active');
-  if (!target.classList.contains('todo-button__filter--active')) {
-    target.classList.add('todo-button__filter--active');
-  }
-}
-
-// Write list to DOM
+// Render Whole List
 function renderTodos() {
 
   // Get todos obj from localStorage
