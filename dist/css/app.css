@@ -1,9 +1,16 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.2em;
+  background-color: #202020; }
+
 .container {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  padding: 40px 0; }
 
 .todo-container {
-  background-color: #cfcfcf;
+  background-color: #afafaf;
+  border-bottom: 4px solid #494949;
   border-radius: 5px;
   padding: 20px;
   width: 500px; }
@@ -13,7 +20,9 @@ ul {
   padding: 0; }
 
 li {
-  background: blue;
+  background: #efefef;
+  border-bottom: 4px solid #898989;
+  border-radius: 5px;
   padding: 10px;
   margin: 20px 0;
   display: none;

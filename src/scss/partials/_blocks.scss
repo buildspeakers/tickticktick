@@ -2,10 +2,12 @@
 .container {
   display: flex;
   justify-content: center;
+  padding: 40px 0;
 }
 
 .todo-container {
   background-color: $listBg;
+  border-bottom: 4px solid darken($listBg, 40%);
   border-radius: 5px;
   padding: 20px;
   width: 500px;
@@ -18,7 +20,9 @@ ul {
 }
 
 li {
-  background: blue;
+  background: $todoBg;
+  border-bottom: 4px solid darken($todoBg, 40%);
+  border-radius: 5px;
   padding: 10px;
   margin: 20px 0;
   display: none;
