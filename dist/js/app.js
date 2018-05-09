@@ -36,6 +36,19 @@ function toggleLocalStore(id) {
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
   setTodos(todos);
 }
+function staggerIn() {
+  // Fade in one by one
+  let todosTl = new TimelineMax();
+  // duration: 0.15s
+  // delay/gap: 0.05s
+  todosTl.staggerTo('.todo-item', 0.15, {
+    ease: Power2.easeIn,
+    display: "list-item",
+    opacity: 1,
+    x: 0
+  }, 0.05);
+}
+
 /*
 *
 *    HELPERS
@@ -210,16 +223,8 @@ function renderTodos() {
     todoListUl.appendChild(createListItem(filteredTodos[i]));
   }
 
-  // Fade in one by one
-  let todosTl = new TimelineMax();  
-  // duration: 0.15s
-  // delay/gap: 0.05s
-  todosTl.staggerTo('.todo-item', 0.15, {
-    ease: Power2.easeIn,
-    display: "list-item",
-    opacity: 1,
-    x: 0
-  }, 0.05);
+  // Animate
+  staggerIn();
 }
 // Filter vars
 const ALL = "ALL";

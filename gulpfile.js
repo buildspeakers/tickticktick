@@ -25,6 +25,7 @@ gulp.task('concatJs', () => {
     // 'node_modules/jQuery/dist/jquery.js',
     // My js
     'src/js/store.js',
+    'src/js/animate.js',
     'src/js/functions.js',
     'src/js/load.js'
   ])
