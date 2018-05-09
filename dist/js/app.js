@@ -159,7 +159,7 @@ function changeCheckbox(id, target) {
   } else {
     target.parentNode.classList.add('todo-item--complete');
   }
-  if (getMeta().view != ALL) unappendTodo(id);
+  if (getView() != ALL) unappendTodo(id);
 }
 
 
@@ -191,15 +191,11 @@ function unappendTodo(dataId) {
 
 
 // Render Whole List
-function renderTodos() {
+function renderTodos() {  
 
-  // Get todos obj from localStorage
-  let todos = getTodos();
-
-  // Create array to be filtered
-  let todosArray = [];
+  let todos = getTodos();  
+  let todosArray = []; // create array to filter based on view
   for (let key in todos) todosArray.push(todos[key]);
-
   if (getView() == COMPLETE) {
     filteredTodos = todosArray.filter(todo => todo.complete == true);
   } else if (getView() == INCOMPLETE) {
@@ -208,32 +204,22 @@ function renderTodos() {
     filteredTodos = todosArray;
   }
 
-
-  // Add to dom
-  let ul = qs('.todo-list');
-  ul.innerHTML = '';
+  // Clear list and re-render
+  todoListUl.innerHTML = '';
   for (let i = 0, l = filteredTodos.length; i < l; i++) {
-    ul.appendChild(createListItem(filteredTodos[i]));
+    todoListUl.appendChild(createListItem(filteredTodos[i]));
   }
 
-
   // Fade in one by one
-  let tl1 = new TimelineMax();
-  let tl2 = new TimelineMax();
-  // GSAP staggerTo...
-  // FIRST VALUE IS DURATION
-  // SECOND VALUE IS STAGGER GAP/DELAY
-  tl1.staggerTo('.todo-item', 0.15, {
+  let todosTl = new TimelineMax();  
+  // duration: 0.15s
+  // delay/gap: 0.05s
+  todosTl.staggerTo('.todo-item', 0.15, {
     ease: Power2.easeIn,
     display: "list-item",
-    opacity: 1
-  }, 0.05);
-
-  tl2.staggerTo('.todo-item', 0.15, {
-    ease: Power2.easeIn,
+    opacity: 1,
     x: 0
   }, 0.05);
-  // bindTodoEvents();
 }
 // Filter vars
 const ALL = "ALL";
@@ -251,6 +237,7 @@ if (!localStorage.getItem("meta")) {
 
 
 // Get DOM elements 
+let todoListUl = qs('.todo-list');
 let todoInput = qs(".todo-add__input");
 let addButton = qs('.todo-button__add');
 let filterAll = qs('.filter__all');
@@ -258,21 +245,8 @@ let filterIncomplete = qs('.filter__incomplete');
 let filterComplete = qs('.filter__complete');
 let todoFilter = qs('todo-filter');
 let filterButtons = qsa('button', todoFilter);
-let todoListUl = qs('.todo-list');
 
 
-//
-// document loads
-//
-
-  // Look at local storage and render list based on what's there
-
-renderTodos();
-
-
-//
-// Bind Events
-//
 // Add todo events
 addButton.addEventListener('click', addTodo);
 todoInput.addEventListener('keyup', function (event) {
@@ -293,3 +267,5 @@ filterComplete.addEventListener('click', function(event) {
   filter(COMPLETE, event.target);
 });
 
+// Render stored todos
+renderTodos();

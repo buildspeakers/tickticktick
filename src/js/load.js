@@ -14,6 +14,7 @@ if (!localStorage.getItem("meta")) {
 
 
 // Get DOM elements 
+let todoListUl = qs('.todo-list');
 let todoInput = qs(".todo-add__input");
 let addButton = qs('.todo-button__add');
 let filterAll = qs('.filter__all');
@@ -21,21 +22,8 @@ let filterIncomplete = qs('.filter__incomplete');
 let filterComplete = qs('.filter__complete');
 let todoFilter = qs('todo-filter');
 let filterButtons = qsa('button', todoFilter);
-let todoListUl = qs('.todo-list');
 
 
-//
-// document loads
-//
-
-  // Look at local storage and render list based on what's there
-
-renderTodos();
-
-
-//
-// Bind Events
-//
 // Add todo events
 addButton.addEventListener('click', addTodo);
 todoInput.addEventListener('keyup', function (event) {
@@ -56,3 +44,5 @@ filterComplete.addEventListener('click', function(event) {
   filter(COMPLETE, event.target);
 });
 
+// Render stored todos
+renderTodos();
