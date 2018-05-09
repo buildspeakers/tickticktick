@@ -85,12 +85,12 @@ function createListItem(newTodo) {
 
   let checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
-  checkbox.className = 'todo-item__checkbox';
+  checkbox.className = 'todo-item__checkbox toggle';
   checkbox.addEventListener('change', function(event) {
     changeCheckbox(newTodo.id, event.target);
   });
 
-  let title = document.createElement('span');
+  let title = document.createElement('label');
   title.innerText = newTodo.title;
 
   let deleteButton = document.createElement('button');
