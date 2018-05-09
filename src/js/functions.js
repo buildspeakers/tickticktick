@@ -162,9 +162,9 @@ function renderTodos() {
   let todosArray = [];
   for (let key in todos) todosArray.push(todos[key]);
 
-  if (getMeta().view == COMPLETE) {
+  if (getView() == COMPLETE) {
     filteredTodos = todosArray.filter(todo => todo.complete == true);
-  } else if (getMeta().view == INCOMPLETE) {
+  } else if (getView() == INCOMPLETE) {
     filteredTodos = todosArray.filter(todo => todo.complete == false);
   } else {
     filteredTodos = todosArray;

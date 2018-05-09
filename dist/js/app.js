@@ -1,51 +1,40 @@
-// Change view
-function getMeta() {
-  return JSON.parse(localStorage.getItem("meta"));
+// Access view data
+function getView() {
+  return JSON.parse(localStorage.getItem("meta")).view;
 }
-function setMeta(meta) {
-  localStorage.setItem("meta", JSON.stringify(meta));
-}
+
 function setView(newView) {
-  let newMeta = getMeta();
+  let newMeta = JSON.parse(localStorage.getItem("meta"));
   newMeta.view = newView;
-  setMeta(newMeta);
+  localStorage.setItem("meta", JSON.stringify(newMeta))
 }
 
 
-// Update todos
+// Update todo data
 function getTodos() {
   return JSON.parse(localStorage.getItem("todos"));
 }
 
+function setTodos(todos) {
+  localStorage.setItem("todos", JSON.stringify(todos));  
+}
+
 function addLocalStore(newTodo) {
-
-  let todos = getTodos();
-  // Give it new todo obj
+  let todos = getTodos();  
   todos[newTodo.id] = newTodo;
-  // Restore todos obj
-  localStorage.setItem("todos", JSON.stringify(todos));   
-
+  setTodos(todos); 
 }
 
 function deleteLocalStore(id) {
-
   let todos = getTodos();
-  // Remove todo
   delete todos[id];
-  // Restore todos obj
-  localStorage.setItem("todos", JSON.stringify(todos)); 
-
+  setTodos(todos); 
 }
 
-// Complete / Incomplete
 function toggleLocalStore(id) {
-
   let todos = getTodos();
-  // Toggle
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
-  // Restore todos obj
-  localStorage.setItem("todos", JSON.stringify(todos));  
-
+  setTodos(todos);
 }
 /*
 *
@@ -211,9 +200,9 @@ function renderTodos() {
   let todosArray = [];
   for (let key in todos) todosArray.push(todos[key]);
 
-  if (getMeta().view == COMPLETE) {
+  if (getView() == COMPLETE) {
     filteredTodos = todosArray.filter(todo => todo.complete == true);
-  } else if (getMeta().view == INCOMPLETE) {
+  } else if (getView() == INCOMPLETE) {
     filteredTodos = todosArray.filter(todo => todo.complete == false);
   } else {
     filteredTodos = todosArray;
