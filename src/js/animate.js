@@ -22,3 +22,15 @@ function fadeIn(dataId) {
     x: 0
   });
 }
+
+function fadeOut(dataId, deleteNode) {
+  TweenMax.to(dataId, 0.15, {
+    ease: Power2.easeIn,
+    opacity: 0
+  });
+  TweenMax.to(dataId, 0.15, {
+    ease: Power2.easeIn,
+    x: 10,
+    onComplete: deleteNode
+  });
+}

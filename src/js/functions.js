@@ -129,13 +129,11 @@ function appendTodo(newTodo) {
 }
 
 function unappendTodo(dataId) {
-  let dataIdVal = "[data-id=\"" + dataId + "\"]";
-  let todoNode = qs(dataIdVal);
-  TweenMax.to(todoNode, 0.15, {
-    ease: Power2.easeIn,
-    opacity: 0
-  });
-  TweenMax.to(todoNode, 0.15, { ease: Power2.easeIn, x: 10, onComplete: deleteNode });
+  let dataIdVal = "[data-id=\"" + dataId + "\"]";  
+  // Animate (pass deleteNode function as it's called when animation ends)
+  fadeOut(dataIdVal, deleteNode);
+  // Delete node
+  let todoNode = qs(dataIdVal);  
   function deleteNode() {
     setTimeout(function () {
       todoNode.parentNode.removeChild(todoNode);
@@ -143,10 +141,8 @@ function unappendTodo(dataId) {
   }
 }
 
-
 // Render Whole List
 function renderTodos() {  
-
   let todos = getTodos();  
   let todosArray = []; // create array to filter based on view
   for (let key in todos) todosArray.push(todos[key]);
@@ -157,13 +153,11 @@ function renderTodos() {
   } else {
     filteredTodos = todosArray;
   }
-
   // Clear list and re-render
   todoListUl.innerHTML = '';
   for (let i = 0, l = filteredTodos.length; i < l; i++) {
     todoListUl.appendChild(createListItem(filteredTodos[i]));
   }
-
   // Animate
   staggerIn();
 }
