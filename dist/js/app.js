@@ -49,6 +49,18 @@ function staggerIn() {
   }, 0.05);
 }
 
+function fadeIn(dataId) {
+  TweenMax.to(dataId, 0.15, {
+    ease: Power2.easeIn,
+    display: "list-item",
+    opacity: 1
+  });
+  TweenMax.to(dataId, 0.15, {
+    ease: Power2.easeIn,
+    x: 0
+  });
+}
+
 /*
 *
 *    HELPERS
@@ -108,15 +120,7 @@ function addTodo() {
     appendTodo(newTodo);
     // Animate it
     let dataId = "[data-id=\"" + newTodo.id + "\"]";
-    TweenMax.to(dataId, 0.15, {
-      ease: Power2.easeIn,
-      display: "list-item",
-      opacity: 1
-    });
-    TweenMax.to(dataId, 0.15, {
-      ease: Power2.easeIn,
-      x: 0
-    });
+    fadeIn(dataId);
   }
 }
 

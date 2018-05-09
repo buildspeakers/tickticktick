@@ -10,3 +10,15 @@ function staggerIn() {
     x: 0
   }, 0.05);
 }
+
+function fadeIn(dataId) {
+  TweenMax.to(dataId, 0.15, {
+    ease: Power2.easeIn,
+    display: "list-item",
+    opacity: 1
+  });
+  TweenMax.to(dataId, 0.15, {
+    ease: Power2.easeIn,
+    x: 0
+  });
+}
