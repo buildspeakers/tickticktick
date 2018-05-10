@@ -1,16 +1,3 @@
-/*
-*
-*    HELPERS
-*
-*/
-function qs(selector) {
-  return document.querySelector(selector);
-}
-
-function qsa(selector) {
-  return document.querySelectorAll(selector);
-}
-
 // Filter Helpers
 function markActiveClass(target) {
   let buttons = target.parentNode.querySelectorAll('button');
@@ -33,10 +20,6 @@ function filter(newView, target) {
 /*
 *   Update todos
 */ 
-
-function newId(title) {
-  return `${title}_${Math.floor(Math.random() * 1000000000)}`;
-}
 
 // Bound to add button
 function addTodo() {

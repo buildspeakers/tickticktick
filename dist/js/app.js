@@ -36,6 +36,17 @@ function toggleLocalStore(id) {
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
   setTodos(todos);
 }
+function qs(selector) {
+  return document.querySelector(selector);
+}
+
+function qsa(selector) {
+  return document.querySelectorAll(selector);
+}
+
+function newId(title) {
+  return `${title}_${Math.floor(Math.random() * 1000000000)}`;
+}
 function staggerIn() {
   // Fade in one by one
   let todosTl = new TimelineMax();
@@ -72,19 +83,6 @@ function fadeOut(dataId, deleteNode) {
     onComplete: deleteNode
   });
 }
-/*
-*
-*    HELPERS
-*
-*/
-function qs(selector) {
-  return document.querySelector(selector);
-}
-
-function qsa(selector) {
-  return document.querySelectorAll(selector);
-}
-
 // Filter Helpers
 function markActiveClass(target) {
   let buttons = target.parentNode.querySelectorAll('button');
@@ -107,10 +105,6 @@ function filter(newView, target) {
 /*
 *   Update todos
 */ 
-
-function newId(title) {
-  return `${title}_${Math.floor(Math.random() * 1000000000)}`;
-}
 
 // Bound to add button
 function addTodo() {
