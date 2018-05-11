@@ -1,0 +1,28 @@
+li {
+  background: $todoBg;
+  border-bottom: 4px solid darken($todoBg, 40%);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px 0;
+  display: none;
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+li:hover .btn-item {
+ visibility: visible;
+ opacity: 1;
+}
+
+.btn-item {
+  cursor: pointer;
+  float: right;
+  margin-left: 15px;
+  transition: color 0.2s;
+  color: $listBg;
+  &:hover {
+    color: $bodyBg;
+  }
+}
+
+

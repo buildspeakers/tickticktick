@@ -51,8 +51,6 @@ function deleteTodo(dataId) {
 }
 
 
-
-
 function createListItem(newTodo) {
   let listItem = document.createElement('li'); // Using document.createElement() - element must be of type 'Node' to use appendChild()
   listItem.className = 'todo-item';
@@ -68,12 +66,11 @@ function createListItem(newTodo) {
   let title = document.createElement('label');
   title.innerText = newTodo.title;
 
-
   let editButton = document.createElement('i');
-  editButton.className = 'fas fa-pencil-alt todo-item__delete'; // todo-button todo-item__delete
+  editButton.className = 'fas fa-pencil-alt btn-item btn-item__edit';
 
   let deleteButton = document.createElement('i'); 
-  deleteButton.className = 'fas fa-trash-alt todo-item__delete'; // todo-button todo-item__delete
+  deleteButton.className = 'fas fa-trash-alt btn-item btn-item__delete';
   deleteButton.addEventListener('click', function () {
     deleteTodo(newTodo.id);  
   });

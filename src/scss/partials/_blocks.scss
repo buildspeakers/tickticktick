@@ -14,33 +14,12 @@
 }
 
 ul {
-  // background-color: ;
   list-style-type: none;
   padding: 0;
 }
 
-li {
-  background: $todoBg;
-  border-bottom: 4px solid darken($todoBg, 40%);
-  border-radius: 5px;
-  padding: 10px;
-  margin: 20px 0;
-  display: none;
-  opacity: 0;
-  transform: translateX(10px);
-}
-
-li:hover .todo-item__delete {
- visibility: visible;
- opacity: 1;
-}
 
 
-/*
-
-BUTTONZZ
-
-*/
 .todo-button {
   display: inline-block;
   outline: none; 
@@ -64,17 +43,4 @@ BUTTONZZ
   border: 1px solid #a1a1a1;
 }
 
-.todo-item__checkbox {
-  margin-right: 15px;
-}
 
-.todo-item__delete {
-  transition: visibility 0s, opacity 0.15s;
-  visibility: hidden;
-  opacity: 0;
-  float: right;
-}
-
-.todo-item--complete {
-  text-decoration: line-through;
-}

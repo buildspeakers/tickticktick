@@ -19,25 +19,6 @@ ul {
   list-style-type: none;
   padding: 0; }
 
-li {
-  background: #efefef;
-  border-bottom: 4px solid #898989;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 20px 0;
-  display: none;
-  opacity: 0;
-  transform: translateX(10px); }
-
-li:hover .todo-item__delete {
-  visibility: visible;
-  opacity: 1; }
-
-/*
-
-BUTTONZZ
-
-*/
 .todo-button {
   display: inline-block;
   outline: none;
@@ -57,17 +38,28 @@ BUTTONZZ
 .todo-button__filter--active {
   border: 1px solid #a1a1a1; }
 
-.todo-item__checkbox {
-  margin-right: 15px; }
-
-.todo-item__delete {
-  transition: visibility 0s, opacity 0.15s;
-  visibility: hidden;
+li {
+  background: #efefef;
+  border-bottom: 4px solid #898989;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px 0;
+  display: none;
   opacity: 0;
-  float: right; }
+  transform: translateX(10px); }
 
-.todo-item--complete {
-  text-decoration: line-through; }
+li:hover .btn-item {
+  visibility: visible;
+  opacity: 1; }
+
+.btn-item {
+  cursor: pointer;
+  float: right;
+  margin-left: 15px;
+  transition: color 0.2s;
+  color: #afafaf; }
+  .btn-item:hover {
+    color: #202020; }
 
 /*
 *
