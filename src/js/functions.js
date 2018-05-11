@@ -68,12 +68,16 @@ function createListItem(newTodo) {
   let title = document.createElement('label');
   title.innerText = newTodo.title;
 
-  let deleteButton = document.createElement('button');
-  deleteButton.className = 'todo-button todo-item__delete';
-  deleteButton.innerText = 'Delete';
+
+  let editButton = document.createElement('i');
+  editButton.className = 'fas fa-pencil-alt todo-item__delete'; // todo-button todo-item__delete
+
+  let deleteButton = document.createElement('i'); 
+  deleteButton.className = 'fas fa-trash-alt todo-item__delete'; // todo-button todo-item__delete
   deleteButton.addEventListener('click', function () {
-    deleteTodo(newTodo.id);
+    deleteTodo(newTodo.id);  
   });
+  
 
   if (newTodo.complete === true) {
     listItem.classList.add('todo-item--complete');
@@ -82,6 +86,7 @@ function createListItem(newTodo) {
 
   listItem.appendChild(checkbox);
   listItem.appendChild(title);
+  listItem.appendChild(editButton);
   listItem.appendChild(deleteButton);
 
   return listItem;
