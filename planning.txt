@@ -9,4 +9,3 @@
 3. Improve Styling    
     - SVG checkboxes (look at toggle class for checkbox on vanillamvc version)
 
-4. Start node.js / express backend

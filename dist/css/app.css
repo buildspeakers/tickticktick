@@ -48,6 +48,12 @@ li {
   opacity: 0;
   transform: translateX(10px); }
 
+label:hover {
+  cursor: text; }
+
+.todo-item--complete label {
+  text-decoration: line-through red; }
+
 .btn-item {
   cursor: pointer;
   float: right;

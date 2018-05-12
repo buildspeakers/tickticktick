@@ -10,9 +10,7 @@ function markActiveClass(target) {
 }
 
 function filter(newView, target) {
-  setView(newView);
-  // Must remove active class from whatever filter button has it
-  // Then add filter class to button that's been clicked
+  setView(newView);  
   markActiveClass(target);
   renderTodos();
 }
@@ -44,12 +42,22 @@ function addTodo() {
   }
 }
 
-// Bound to delete button
 function deleteTodo(dataId) {
   deleteLocalStore(dataId);
   unappendTodo(dataId)
 }
 
+function editOpen(dataId) {
+  alert('edit fires')
+  // remove label element and create input element in it's place containing title text
+  // switch edit button to save button
+  // bind cancel event to input (ESC)
+  // bind save event to input (ENTER) / save button
+}
+
+function editSave(dataId) {
+
+}
 
 function createListItem(newTodo) {
   let listItem = document.createElement('li'); // Using document.createElement() - element must be of type 'Node' to use appendChild()
@@ -65,9 +73,15 @@ function createListItem(newTodo) {
 
   let title = document.createElement('label');
   title.innerText = newTodo.title;
+  title.addEventListener('dblclick', function() {
+    editOpen(newTodo.id);
+  })
 
   let editButton = document.createElement('i');
   editButton.className = 'fas fa-pencil-alt btn-item btn-item__edit';
+  editButton.addEventListener('click', function () {
+    editOpen(newTodo.id);
+  });
 
   let deleteButton = document.createElement('i'); 
   deleteButton.className = 'fas fa-trash-alt btn-item btn-item__delete';
