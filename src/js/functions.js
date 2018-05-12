@@ -48,7 +48,14 @@ function deleteTodo(dataId) {
 }
 
 function editOpen(dataId) {
-  alert('edit fires')
+  let listItem = qs("[data-id=\"" + dataId + "\"]");
+  let input = document.createElement('input');
+  input.setAttribute('placeholder', "Test");
+  listItem.querySelector('label').remove();
+  listItem.querySelector('i').remove();
+  listItem.querySelector('i').remove();
+  console.log(listItem);
+  listItem.appendChild(input);
   // remove label element and create input element in it's place containing title text
   // switch edit button to save button
   // bind cancel event to input (ESC)
