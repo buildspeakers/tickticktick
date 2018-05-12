@@ -49,17 +49,35 @@ function deleteTodo(dataId) {
 
 function editOpen(dataId) {
   let listItem = qs("[data-id=\"" + dataId + "\"]");
-  let input = document.createElement('input');
-  input.setAttribute('placeholder', "Test");
+  let labelText = listItem.querySelector('label').innerText;
+
+  // Remove old els
   listItem.querySelector('label').remove();
   listItem.querySelector('i').remove();
   listItem.querySelector('i').remove();
-  console.log(listItem);
+
+  let input = document.createElement('input');
+  input.className = 'edit-input';
+  input.setAttribute('placeholder', labelText);
+
+  let saveButton = document.createElement('i');
+  saveButton.className = 'fas fa-save btn-item btn-item__save';
+  saveButton.addEventListener('click', function () {
+    console.log("Edit Save");
+  });
+
+  let cancelButton = document.createElement('i');
+  cancelButton.className = 'fas fa-times btn-item btn-item__cancel';
+  cancelButton.addEventListener('click', function () {
+    console.log("Cancel Edit");
+  });
+
   listItem.appendChild(input);
-  // remove label element and create input element in it's place containing title text
-  // switch edit button to save button
-  // bind cancel event to input (ESC)
-  // bind save event to input (ENTER) / save button
+  listItem.appendChild(cancelButton);
+  listItem.appendChild(saveButton);
+
+  listItem.querySelector('.edit-input').focus();
+  
 }
 
 function editSave(dataId) {
