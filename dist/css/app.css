@@ -48,18 +48,20 @@ li {
   opacity: 0;
   transform: translateX(10px); }
 
-li:hover .btn-item {
-  visibility: visible;
-  opacity: 1; }
-
 .btn-item {
   cursor: pointer;
   float: right;
   margin-left: 15px;
-  transition: color 0.2s;
-  color: #afafaf; }
+  color: #afafaf;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s, color 0.3s; }
   .btn-item:hover {
     color: #202020; }
+
+li:hover .btn-item {
+  visibility: visible;
+  opacity: 1; }
 
 /*
 *

@@ -9,20 +9,20 @@ li {
   transform: translateX(10px);
 }
 
-li:hover .btn-item {
- visibility: visible;
- opacity: 1;
-}
-
 .btn-item {
   cursor: pointer;
   float: right;
   margin-left: 15px;
-  transition: color 0.2s;
   color: $listBg;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s, color 0.3s;
   &:hover {
     color: $bodyBg;
   }
 }
 
-
+li:hover .btn-item {
+ visibility: visible;
+ opacity: 1;
+}
