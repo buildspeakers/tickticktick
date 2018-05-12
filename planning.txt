@@ -3,11 +3,10 @@
 2. edit todo functionality
     - double click to edit / button to save
     - edit handler (button / double click)
-    - save handler
+        - swap edit button for save button
+    - save handler (button / return / input lose focus)
 
-3. Improve Styling
-    - bin icon for delete
-    - pen icon for edit or doubleclick
+3. Improve Styling    
     - SVG checkboxes (look at toggle class for checkbox on vanillamvc version)
 
 4. Start node.js / express backend
