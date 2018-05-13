@@ -1,13 +1,17 @@
-1. UX - Switch to Incomplete View if Adding new todo in complete view    
-
-2. edit todo functionality
+1. edit todo functionality
     - double click to edit / button to save
     - edit handler (button / double click)
         - swap edit button for save button
     - save handler (button / return / input lose focus)
 
 
-    *** refactor update store on edit
+    *** refactor update store on edit ***
+
+
+
+
+2. UX - Switch to Incomplete View if Adding new todo in complete view    
+
 
 
 3. Improve Styling    
