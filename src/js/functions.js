@@ -47,43 +47,6 @@ function deleteTodo(dataId) {
   unappendTodo(dataId)
 }
 
-function editOpen(dataId) {
-  let listItem = qs("[data-id=\"" + dataId + "\"]");
-  let labelText = listItem.querySelector('label').innerText;
-
-  // Remove old els
-  listItem.querySelector('label').remove();
-  listItem.querySelector('i').remove();
-  listItem.querySelector('i').remove();
-
-  let input = document.createElement('input');
-  input.className = 'edit-input';
-  input.setAttribute('placeholder', labelText);
-
-  let saveButton = document.createElement('i');
-  saveButton.className = 'fas fa-save btn-item btn-item__save';
-  saveButton.addEventListener('click', function () {
-    console.log("Edit Save");
-  });
-
-  let cancelButton = document.createElement('i');
-  cancelButton.className = 'fas fa-times btn-item btn-item__cancel';
-  cancelButton.addEventListener('click', function () {
-    console.log("Cancel Edit");
-  });
-
-  listItem.appendChild(input);
-  listItem.appendChild(cancelButton);
-  listItem.appendChild(saveButton);
-
-  listItem.querySelector('.edit-input').focus();
-  
-}
-
-function editSave(dataId) {
-
-}
-
 function createListItem(newTodo) {
   let listItem = document.createElement('li'); // Using document.createElement() - element must be of type 'Node' to use appendChild()
   listItem.className = 'todo-item';
@@ -122,8 +85,8 @@ function createListItem(newTodo) {
 
   listItem.appendChild(checkbox);
   listItem.appendChild(title);
-  listItem.appendChild(editButton);
   listItem.appendChild(deleteButton);
+  listItem.appendChild(editButton);
 
   return listItem;
 

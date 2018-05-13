@@ -27,6 +27,7 @@ gulp.task('concatJs', () => {
     'src/js/store.js',
     'src/js/helpers.js',
     'src/js/animate.js',
+    'src/js/edit.js',
     'src/js/functions.js',
     'src/js/load.js'
   ])
