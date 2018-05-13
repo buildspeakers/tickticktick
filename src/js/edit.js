@@ -43,7 +43,18 @@ function editSave(target) {
   let newTitle = listItem.querySelector('.edit-input').value;
   let dataId = listItem.getAttribute('data-id');
   let newId = updateLocalStore(newTitle, dataId);
+  let checkedAttribute = listItem.querySelector('input').getAttribute('checked');
   listItem.setAttribute('data-id', newId);
+
+  // New chekcbox must 
+  let newCheckbox = document.createElement('input');
+  newCheckbox.type = 'checkbox';
+  if (checkedAttribute !== null) newCheckbox.setAttribute('checked', checkedAttribute);;
+  newCheckbox.className = 'todo-item__checkbox toggle';
+  newCheckbox.addEventListener('change', function (event) {
+    changeCheckbox(newId, event.target);
+  });
+
   // New label
   let title = document.createElement('label');
   title.innerText = newTitle;
@@ -65,10 +76,8 @@ function editSave(target) {
   });
 
   // remove and replace
-  listItem.querySelector('.edit-input').remove();
-  listItem.querySelector('i').remove();
-  listItem.querySelector('i').remove();
-
+  listItem.innerHTML = '';
+  listItem.appendChild(newCheckbox);
   listItem.appendChild(title);
   listItem.appendChild(deleteButton);
   listItem.appendChild(editButton);

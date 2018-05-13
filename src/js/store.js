@@ -32,10 +32,8 @@ function deleteLocalStore(id) {
 }
 
 function updateLocalStore(newTitle, dataId) {  
-  // newId(newTitle);
   let todos = getTodos();
   let updatedTodo = Object.assign({}, todos[dataId]);
-  console.log(updatedTodo);
   delete todos[dataId];
   updatedTodo.title = newTitle;
   updatedTodo.id = newId(newTitle);
