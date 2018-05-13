@@ -41,6 +41,7 @@ function updateLocalStore(newTitle, dataId) {
   updatedTodo.id = newId(newTitle);
   todos[updatedTodo.id] = updatedTodo;
   setTodos(todos);
+  return updatedTodo.id;
 }
 
 function toggleLocalStore(id) {

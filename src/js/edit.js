@@ -41,8 +41,39 @@ function editSave(target) {
   let newTitle = listItem.querySelector('.edit-input').value;
   let dataId = listItem.getAttribute('data-id');
   // stick it in storage
-  updateLocalStore(newTitle, dataId);
+  // func returns new dataId
+  let newId = updateLocalStore(newTitle, dataId);
   // remove input and buttons & add label with new title and buttons  
+
+  // New label
+  let title = document.createElement('label');
+  title.innerText = newTitle;
+  title.addEventListener('dblclick', function () {
+    editOpen(newId);
+  });
+
+  // new buttons
+  let editButton = document.createElement('i');
+  editButton.className = 'fas fa-pencil-alt btn-item btn-item__edit';
+  editButton.addEventListener('click', function () {
+    editOpen(newId);
+  });
+
+  let deleteButton = document.createElement('i');
+  deleteButton.className = 'fas fa-trash-alt btn-item btn-item__delete';
+  deleteButton.addEventListener('click', function () {
+    deleteTodo(newId);
+  });
+
+  // remove and replace
+  listItem.querySelector('.edit-input').remove();
+  listItem.querySelector('i').remove();
+  listItem.querySelector('i').remove();
+
+  listItem.appendChild(title);
+  listItem.appendChild(editButton);
+  listItem.appendChild(deleteButton);
+
 }
 
 function editCancel(target) {
