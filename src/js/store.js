@@ -31,6 +31,18 @@ function deleteLocalStore(id) {
   setTodos(todos); 
 }
 
+function updateLocalStore(newTitle, dataId) {  
+  // newId(newTitle);
+  let todos = getTodos();
+  let updatedTodo = Object.assign({}, todos[dataId]);
+  console.log(updatedTodo);
+  delete todos[dataId];
+  updatedTodo.title = newTitle;
+  updatedTodo.id = newId(newTitle);
+  todos[updatedTodo.id] = updatedTodo;
+  setTodos(todos);
+}
+
 function toggleLocalStore(id) {
   let todos = getTodos();
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);

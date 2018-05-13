@@ -31,6 +31,18 @@ function deleteLocalStore(id) {
   setTodos(todos); 
 }
 
+function updateLocalStore(newTitle, dataId) {  
+  // newId(newTitle);
+  let todos = getTodos();
+  let updatedTodo = Object.assign({}, todos[dataId]);
+  console.log(updatedTodo);
+  delete todos[dataId];
+  updatedTodo.title = newTitle;
+  updatedTodo.id = newId(newTitle);
+  todos[updatedTodo.id] = updatedTodo;
+  setTodos(todos);
+}
+
 function toggleLocalStore(id) {
   let todos = getTodos();
   if (todos[id].complete == false ? todos[id].complete = true : todos[id].complete = false);
@@ -96,16 +108,20 @@ function editOpen(dataId) {
   let input = document.createElement('input');
   input.className = 'edit-input';
   input.setAttribute('placeholder', labelText);
+  input.addEventListener('blur', function(event) {
+    // if input is empty - cancelEdit();
+    // if not empty then save
+  });
 
   let saveButton = document.createElement('i');
   saveButton.className = 'fas fa-save btn-item btn-item__save';
-  saveButton.addEventListener('click', function (event) {
+  saveButton.addEventListener('click', function(event) {
     editSave(event.target);
   });
 
   let cancelButton = document.createElement('i');
   cancelButton.className = 'fas fa-times btn-item btn-item__cancel';
-  cancelButton.addEventListener('click', function (event) {
+  cancelButton.addEventListener('click', function(event) {
     editCancel(event.target);
   });
 
@@ -118,10 +134,11 @@ function editOpen(dataId) {
 }
 
 function editSave(target) {
-  let li = target.parentNode; // li
-  // get new input text
-  console.log(li.querySelector('.edit-input').value);
+  let listItem = target.parentNode;
+  let newTitle = listItem.querySelector('.edit-input').value;
+  let dataId = listItem.getAttribute('data-id');
   // stick it in storage
+  updateLocalStore(newTitle, dataId);
   // remove input and buttons & add label with new title and buttons  
 }
 
