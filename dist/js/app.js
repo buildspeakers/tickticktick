@@ -135,14 +135,13 @@ function editOpen(dataId) {
 }
 
 function editSave(target) {
+  // need to rebind all els with events based on new dataId
+  // checkbox currently keeps old id
   let listItem = target.parentNode;
   let newTitle = listItem.querySelector('.edit-input').value;
   let dataId = listItem.getAttribute('data-id');
-  // stick it in storage
-  // func returns new dataId
   let newId = updateLocalStore(newTitle, dataId);
-  // remove input and buttons & add label with new title and buttons  
-
+  listItem.setAttribute('data-id', newId);
   // New label
   let title = document.createElement('label');
   title.innerText = newTitle;
@@ -169,8 +168,8 @@ function editSave(target) {
   listItem.querySelector('i').remove();
 
   listItem.appendChild(title);
-  listItem.appendChild(editButton);
   listItem.appendChild(deleteButton);
+  listItem.appendChild(editButton);
 
 }
 
