@@ -15,6 +15,11 @@ function editOpen(dataId) {
     // if input is empty - cancelEdit();
     // if not empty then save
   });
+  input.addEventListener('keyup', function (event) {
+    if (event.which === 13) {
+      editSave(event.target);
+    }
+  });
 
   let saveButton = document.createElement('i');
   saveButton.className = 'fas fa-save btn-item btn-item__save';
@@ -36,17 +41,16 @@ function editOpen(dataId) {
 
 }
 
-function editSave(target) {
-  // need to rebind all els with events based on new dataId
-  // checkbox currently keeps old id
+function editSave(target) {  
   let listItem = target.parentNode;
   let newTitle = listItem.querySelector('.edit-input').value;
   let dataId = listItem.getAttribute('data-id');
   let newId = updateLocalStore(newTitle, dataId);
   let checkedAttribute = listItem.querySelector('input').getAttribute('checked');
+  // New status data
   listItem.setAttribute('data-id', newId);
 
-  // New chekcbox must 
+  // New checkbox
   let newCheckbox = document.createElement('input');
   newCheckbox.type = 'checkbox';
   if (checkedAttribute !== null) newCheckbox.setAttribute('checked', checkedAttribute);;
@@ -68,7 +72,6 @@ function editSave(target) {
   editButton.addEventListener('click', function () {
     editOpen(newId);
   });
-
   let deleteButton = document.createElement('i');
   deleteButton.className = 'fas fa-trash-alt btn-item btn-item__delete';
   deleteButton.addEventListener('click', function () {
