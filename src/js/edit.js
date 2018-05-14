@@ -10,11 +10,12 @@ function editOpen(dataId) {
 
   let input = document.createElement('input');
   input.className = 'edit-input';
-  input.setAttribute('placeholder', labelText);
+  input.value = labelText;
   input.addEventListener('blur', function(event) {
     // if input is empty - cancelEdit();
     // if not empty then save
   });
+  
   input.addEventListener('keyup', function (event) {
     if (event.which === 13) {
       editSave(event.target);
