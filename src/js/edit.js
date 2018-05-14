@@ -15,8 +15,12 @@ function editOpen(dataId) {
     // if input is empty - cancelEdit();
     // if not empty then save
   });
-  
+  // Select all input text automatically
+  input.addEventListener('focus', function (event) {
+    event.target.select();
+  });  
   input.addEventListener('keyup', function (event) {
+    // Return key saves too
     if (event.which === 13) {
       editSave(event.target);
     }
