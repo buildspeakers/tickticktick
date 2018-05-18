@@ -7,5 +7,7 @@ function qsa(selector) {
 }
 
 function newId(title) {
-  return `${title}_${Math.floor(Math.random() * 1000000000)}`;
+  return `${Math.floor(Math.random() * 1000)}`
+       + `${Math.floor(Math.random() * 1000)}`
+       + `${Math.floor(Math.random() * 1000)}`;
 }
