@@ -196,12 +196,12 @@ function editCancel(target) {
 
 // Filter Helpers
 function markActiveClass(target) {
-  let buttons = target.parentNode.querySelectorAll('button');
-  for (let i = 0, l = buttons.length; i < l; i++) {
-    if (buttons[i].classList.contains('todo-button__filter--active')) {
-      buttons[i].classList.remove('todo-button__filter--active')
-    }
-  }
+  target.parentNode.querySelectorAll('button')
+    .forEach((button) => {
+      if (button.classList.contains('todo-button__filter--active')) {
+        button.classList.remove('todo-button__filter--active')
+      }
+    });
   target.classList.add('todo-button__filter--active');
 }
 
