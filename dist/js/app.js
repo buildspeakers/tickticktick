@@ -197,7 +197,7 @@ function editCancel(target) {
 // Filter Helpers
 function markActiveClass(target) {
   target.parentNode.querySelectorAll('button')
-    .forEach((button) => {
+    .forEach(button => {
       if (button.classList.contains('todo-button__filter--active')) {
         button.classList.remove('todo-button__filter--active')
       }
@@ -338,9 +338,7 @@ function renderTodos() {
   }
   // Clear list and re-render
   todoListUl.innerHTML = '';
-  for (let i = 0, l = filteredTodos.length; i < l; i++) {
-    todoListUl.appendChild(createListItem(filteredTodos[i]));
-  }
+  filteredTodos.forEach(todo => todoListUl.appendChild(createListItem(todo)));
   // Animate
   staggerIn();
 }
