@@ -34,15 +34,9 @@ todoInput.addEventListener('keyup', function (event) {
 });
 
 // Filter events
-filterAll.addEventListener('click', function(event) {
-  filter(ALL, event.target);
-});
-filterIncomplete.addEventListener('click', function(event) {
-  filter(INCOMPLETE, event.target);
-});
-filterComplete.addEventListener('click', function(event) {
-  filter(COMPLETE, event.target);
-});
+filterAll.addEventListener('click', event => filter(ALL, event.target));
+filterIncomplete.addEventListener('click', event => filter(INCOMPLETE, event.target));
+filterComplete.addEventListener('click', event => filter(COMPLETE, event.target));
 
-// Render stored todos
+// Render stored todos on page load
 renderTodos();
