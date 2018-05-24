@@ -1,6 +1,4 @@
 li {
-  background: $todoBg;
-  border-bottom: 4px solid darken($todoBg, 40%);
   border-radius: 5px;
   padding: 10px;
   margin: 20px 0;
@@ -21,12 +19,11 @@ label:hover {
   cursor: pointer;
   float: right;
   margin-left: 15px;
-  color: $listBg;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s, color 0.3s;
   &:hover {
-    color: $bodyBg;
+    // color: $bodyBg;
   }
 }
 
